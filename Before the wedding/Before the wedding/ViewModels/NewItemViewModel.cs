@@ -9,7 +9,7 @@ using Before_the_wedding.Services;
 
 namespace Before_the_wedding.ViewModels
 {
-    public class NewItemViewModel : BaseViewModel, IPassesValues
+    public class NewItemViewModel : BaseViewModel
     {
         private Guid id;
         private string question;

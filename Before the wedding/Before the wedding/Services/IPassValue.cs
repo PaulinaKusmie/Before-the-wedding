@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Before_the_wedding.Services
 {
-    public interface IPassesValues<T>
+    public interface IPassValue<T>
     {
         Task PassValueAsync(T item);
     }

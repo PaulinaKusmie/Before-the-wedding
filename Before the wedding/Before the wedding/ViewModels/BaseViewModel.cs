@@ -11,7 +11,7 @@ namespace Before_the_wedding.ViewModels
     public class BaseViewModel : INotifyPropertyChanged
     {
         public IDataStore<Item> DataStore => DependencyService.Get<IDataStore<Item>>();
-        public IPassesValues<Item> PassesValues => DependencyService.Get<IPassesValues<Item>>();
+        public IPassValue<Item> PassesValues => DependencyService.Get<IPassValue<Item>>();
 
         bool isBusy = false;
         public bool IsBusy

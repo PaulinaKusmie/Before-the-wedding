@@ -181,7 +181,7 @@ namespace Before_the_wedding.Models
             try
             {
                 sqlConnection.Open();
-                using (SqlCommand command2 = new SqlCommand("UPDATE FROM Item (nolock) SET Answer = @Answer, Questions = @Questions WHERE Id = @PW", sqlConnection))
+                using (SqlCommand command2 = new SqlCommand("UPDATE Item SET Answear = @Answer, Question = @Questions WHERE Id = @PW", sqlConnection))
                 {
                     command2.Parameters.Add(new SqlParameter("@PW", item.Id));
                     command2.Parameters.Add(new SqlParameter("@Answer", item.Answear));
@@ -190,8 +190,8 @@ namespace Before_the_wedding.Models
                 }
                 sqlConnection.Close();
             }
-            catch
-            {
+            catch (Exception ex)
+            { 
                 return await Task.FromResult(false);
             }
 

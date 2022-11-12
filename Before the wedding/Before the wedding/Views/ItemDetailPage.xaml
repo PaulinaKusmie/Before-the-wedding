@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:local="clr-namespace:Before_the_wedding.Views"
              x:Class="Before_the_wedding.Views.ItemDetailPage"
              Title="{Binding Title}">
 
     <StackLayout Spacing="20" Padding="15">
-        <Label Text="Text:" FontSize="Medium" />
+        <Label Text="Pytanie:" FontSize="Medium" />
         <Entry Text="{Binding Question, Mode=TwoWay}" FontSize="Medium"/>
-        <Label Text="Description:" FontSize="Medium" />
+        <Label Text="Odpowiedź:" FontSize="Medium" />
         <Entry Text="{Binding Answear, Mode=TwoWay}" FontSize="Medium"/>
         <StackLayout Orientation="Horizontal">
             <Button Text="Edytuj" Command="{Binding EditCommand}" HorizontalOptions="FillAndExpand"></Button>

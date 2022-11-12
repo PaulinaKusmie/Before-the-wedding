@@ -4,11 +4,11 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
 using Xamarin.Forms;
+using Before_the_wedding.Services;
 
 namespace Before_the_wedding.ViewModels
 {
-   
-    public class ItemDetailViewModel : BaseViewModel, IPassesValues
+    public class ItemDetailViewModel : BaseViewModel, IPassValue<Item>
     {
         #region Fields
         private string question;
@@ -20,9 +20,12 @@ namespace Before_the_wedding.ViewModels
         #region Properties
         public Guid Id
         {
-            get => Id;
+            get => id;
             set
-            { id = value; }
+            { 
+                id = value;
+                OnPropertyChanged();
+            }
         }
 
     
@@ -61,6 +64,7 @@ namespace Before_the_wedding.ViewModels
             {
                 item = value;
                 LoadItemId(value);
+                OnPropertyChanged();
             }
         }
 
@@ -71,13 +75,20 @@ namespace Before_the_wedding.ViewModels
 
         public ItemDetailViewModel()
         {
-            EditCommand = new Command(OnEdit, ValidateSave);
-        }
-
-        public async Task EditItemAsync(Item item)
-        {
+            EditCommand = new Command(OnEdit);
             this.Item = item;
         }
+
+        public ItemDetailViewModel(Item item)
+        {
+            EditCommand = new Command(OnEdit);
+            this.Item = item;
+        }
+
+        //public async Task IPassValue<Item>.PassValueAsync(Item item)
+        //{
+        //    this.Item = item;
+        //}
 
         private bool ValidateSave()
         {
@@ -90,13 +101,12 @@ namespace Before_the_wedding.ViewModels
             Item newItem = new Item()
             {
                 Id = Id,
-                Question = Question,
-                Answear = Answear
+                Answear = Answear,
+                Question = Question
             };
 
             await DataStore.EditItemAsync(newItem);
 
-            await Shell.Current.GoToAsync("..");
         }
         
 
@@ -113,6 +123,11 @@ namespace Before_the_wedding.ViewModels
             {
                 Debug.WriteLine("Nie można załadować pytania");
             }
+        }
+
+        public async Task PassValueAsync(Item item)
+        {
+           /////////
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Before_the_wedding.ViewModels;
+﻿using Before_the_wedding.Models;
+using Before_the_wedding.ViewModels;
 using System.ComponentModel;
 using Xamarin.Forms;
 
@@ -6,10 +7,10 @@ namespace Before_the_wedding.Views
 {
     public partial class ItemDetailPage : ContentPage
     {
-        public ItemDetailPage()
+        public ItemDetailPage(Item item)
         {
             InitializeComponent();
-            BindingContext = new ItemDetailViewModel();
+            BindingContext = new ItemDetailViewModel(item);
         }
     }
 }

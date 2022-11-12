@@ -88,16 +88,18 @@ namespace Before_the_wedding.ViewModels
         {
             await Shell.Current.GoToAsync(nameof(NewItemPage));
         }
-
+        INavigation Navigation => Application.Current.MainPage.Navigation;
         async void OnItemSelected(Item item)
         {
             if (item == null)
                 return;
 
-            // This will push the ItemDetailPage onto the navigation stack
-           // await Shell.Current.GoToAsync(nameof(NewItemPage));
 
-            await PassesValues.PassValueAsync(item);
+            await Navigation.PushModalAsync(new ItemDetailPage(item));
+
+            ExecuteLoadItemsCommand();
         }
+
+     
     }
 }
