@@ -12,6 +12,7 @@ namespace Before_the_wedding.ViewModels
     public class ItemsViewModel : BaseViewModel
     {
         private Item _selectedItem;
+        public string TextSearch;
 
         public ObservableCollection<Item> Items { get; }
         public Command LoadItemsCommand { get; }

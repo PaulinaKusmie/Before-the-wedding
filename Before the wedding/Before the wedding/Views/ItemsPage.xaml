@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Before_the_wedding.Views.ItemsPage"
              Title="{Binding Title}"
+              xmlns:tabview="clr-namespace:Xam.Plugin.TabView;assembly=Xam.Plugin.TabView"
              xmlns:local="clr-namespace:Before_the_wedding.ViewModels"  
              xmlns:model="clr-namespace:Before_the_wedding.Models"  
              x:Name="BrowseItemsPage">
@@ -14,64 +15,78 @@
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Add" Command="{Binding AddItemCommand}" />
     </ContentPage.ToolbarItems>
-    <!--
-      x:DataType enables compiled bindings for better performance and compile time validation of binding expressions.
-      https://docs.microsoft.com/xamarin/xamarin-forms/app-fundamentals/data-binding/compiled-bindings
-    -->
 
+    <StackLayout>
+        <tabview:TabViewControl
+                HeaderBackgroundColor="SkyBlue"
+                HeaderSelectionUnderlineColor="White"
+                HeaderTabTextColor="White"
+                HeaderTabTextFontAttributes="Bold"
+                HorizontalOptions="FillAndExpand"
+                IsSwipeEnabled="True"
+                TabHeaderSpacing="50"
+         
+                VerticalOptions="Start">
+            <tabview:TabViewControl.ItemSource>
+                <tabview:TabItem  HeaderText="Tab 1">
 
-    <RefreshView x:DataType="local:ItemsViewModel" Command="{Binding LoadItemsCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
-        <CollectionView x:Name="ItemsListView"   ItemsSource="{Binding Items}"
-                        SelectionMode="None">
-            <!--<Tab Title="Domestic"
-             Route="domestic"
-             Icon="paw.png">
-                <ShellContent Route="cats"
-                          Style="{StaticResource DomesticShell}"
-                          Title="Cats"
-                          Icon="cat.png"
-                          ContentTemplate="{DataTemplate views:CatsPage}" />
-                <ShellContent Route="dogs"
-                          Style="{StaticResource DomesticShell}"
-                          Title="Dogs"
-                          Icon="dog.png"
-                          ContentTemplate="{DataTemplate views:DogsPage}" />
-            </Tab>-->
+                    <StackLayout>
+                        <SearchBar Placeholder="Wyszukaj pytanie" TextChanged="{Binding TextSearch}"/>
+                        <RefreshView x:DataType="local:ItemsViewModel" Command="{Binding LoadItemsCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
+                            <CollectionView x:Name="ItemsListView"   ItemsSource="{Binding Items}"
+                            SelectionMode="None">
 
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <SwipeView>
-                        <SwipeView.RightItems>
-                            <SwipeItem Text="Edytuj" BackgroundColor="CornflowerBlue"  Command="{Binding Path=BindingContext.EditItemCommand, Source={x:Reference Name=BrowseItemsPage}}" CommandParameter="{Binding .}"
-                                               IconImageSource="task.png" />
-                            <SwipeItem Text="Usuń" BackgroundColor="#df8af2"  Command="{Binding BindingContext.DeleteItemCommand, Source={x:Reference Name=BrowseItemsPage}}"  CommandParameter="{Binding .}"
-                                              IconImageSource="trash.png"/>
-                        </SwipeView.RightItems>
-                        <Grid Padding="10" x:DataType="model:Item">
-                            <Grid.RowDefinitions>
-                                <RowDefinition />
-                                <RowDefinition />
-                            </Grid.RowDefinitions>
-                            <Label Text="{Binding Question}" 
-                                    Style="{DynamicResource ListItemTextStyle}" 
-                                    FontSize="16" Grid.Row="0"  />
-                            <Label Text="{Binding Answear}" 
-                                    Style="{DynamicResource ListItemDetailTextStyle}"
-                                    FontSize="13" Grid.Row="1" />
-                            <Grid.GestureRecognizers>
-                                <TapGestureRecognizer 
-                                        NumberOfTapsRequired="1"
-                                        Command="{Binding Source={RelativeSource AncestorType={x:Type local:ItemsViewModel}}, Path=ItemTapped}"		
-                                        CommandParameter="{Binding .}">
-                                </TapGestureRecognizer>
-                            </Grid.GestureRecognizers>
-                        </Grid>
-                    </SwipeView>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
-        
-    </RefreshView>
- 
+                                <CollectionView.ItemTemplate>
 
+                                    <DataTemplate>
+
+                                        <SwipeView>
+
+                                            <SwipeView.RightItems>
+                                                <SwipeItem Text="Edytuj" BackgroundColor="CornflowerBlue"  Command="{Binding Path=BindingContext.EditItemCommand, Source={x:Reference Name=BrowseItemsPage}}" CommandParameter="{Binding .}"
+                                                   IconImageSource="task.png" />
+                                                <SwipeItem Text="Usuń" BackgroundColor="#df8af2"  Command="{Binding BindingContext.DeleteItemCommand, Source={x:Reference Name=BrowseItemsPage}}"  CommandParameter="{Binding .}"
+                                                  IconImageSource="trash.png"/>
+                                            </SwipeView.RightItems>
+                                            <Grid Padding="10" x:DataType="model:Item">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition />
+                                                    <RowDefinition />
+                                                </Grid.RowDefinitions>
+                                                <Label Text="{Binding Question}" 
+                                        Style="{DynamicResource ListItemTextStyle}" 
+                                        FontSize="16" Grid.Row="0"  />
+                                                <Label Text="{Binding Answear}" 
+                                        Style="{DynamicResource ListItemDetailTextStyle}"
+                                        FontSize="13" Grid.Row="1" />
+                                                <Grid.GestureRecognizers>
+                                                    <TapGestureRecognizer 
+                                            NumberOfTapsRequired="1"
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type local:ItemsViewModel}}, Path=ItemTapped}"		
+                                            CommandParameter="{Binding .}">
+                                                    </TapGestureRecognizer>
+                                                </Grid.GestureRecognizers>
+                                            </Grid>
+                                        </SwipeView>
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+                            </CollectionView>
+
+                        </RefreshView>
+                    </StackLayout>
+                </tabview:TabItem>
+                <tabview:TabItem HeaderText="Tab 2">
+                    <Label
+                           TextColor="DarkRed"
+                            FontSize="Large"
+                            HorizontalOptions="Center"
+                            Text="Hello There!"
+                            VerticalOptions="Center" />
+                </tabview:TabItem>
+            </tabview:TabViewControl.ItemSource>
+        </tabview:TabViewControl>
+       
+     
+
+    </StackLayout>
 </ContentPage>

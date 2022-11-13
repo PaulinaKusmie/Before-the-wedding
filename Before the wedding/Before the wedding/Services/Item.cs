@@ -63,10 +63,12 @@ namespace Before_the_wedding.Models
         public async Task<List<Item>> LoadingItemAsync()
         {
             List<Item> ItemList = new List<Item>();
-            
+
+            if (sqlConnection.State == System.Data.ConnectionState.Open)
+                sqlConnection.Close();
 
             sqlConnection.Open();
-                using (SqlCommand command = new SqlCommand("SELECT  * FROM Item (nolock)", sqlConnection))
+                using (SqlCommand command = new SqlCommand("SELECT Id, Question, Answear  FROM Item (nolock)", sqlConnection))
                 {
                     
                     SqlDataReader radera = command.ExecuteReader();
@@ -74,8 +76,8 @@ namespace Before_the_wedding.Models
                     {
 
                         Id = Guid.Parse(radera["Id"].ToString());
-                        Answear = (string)radera["Question"];
-                        Question = (string)radera["Answear"];
+                        Answear = (string)radera["Answear"];
+                        Question = (string)radera["Question"];
 
                         Item dic = new Item();
                         dic.Id = Id;
@@ -183,9 +185,9 @@ namespace Before_the_wedding.Models
                 sqlConnection.Open();
                 using (SqlCommand command2 = new SqlCommand("UPDATE Item SET Answear = @Answer, Question = @Questions WHERE Id = @PW", sqlConnection))
                 {
-                    command2.Parameters.Add(new SqlParameter("@PW", item.Id));
-                    command2.Parameters.Add(new SqlParameter("@Answer", item.Answear));
-                    command2.Parameters.Add(new SqlParameter("@Questions", item.Question));
+                    command2.Parameters.AddWithValue("@PW", item.Id);
+                    command2.Parameters.AddWithValue("@Answer", item.Answear);
+                    command2.Parameters.AddWithValue("@Questions", item.Question);
                     command2.ExecuteNonQuery();
                 }
                 sqlConnection.Close();
