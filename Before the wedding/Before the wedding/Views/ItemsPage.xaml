@@ -13,7 +13,7 @@
     </ContentPage.BindingContext>
     
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Add" Command="{Binding AddItemCommand}" />
+        <ToolbarItem Text="Dodaj pytanie" Command="{Binding AddItemCommand}" />
     </ContentPage.ToolbarItems>
 
     <ContentPage.Resources>
@@ -41,34 +41,22 @@
                                 SelectionMode="None">
                                 <CollectionView.ItemTemplate>
                                     <DataTemplate>
-
-                                        <SwipeView>
-                                            <SwipeView.RightItems>
-                                                <SwipeItem Text="Edytuj" BackgroundColor="CornflowerBlue"  Command="{Binding Path=BindingContext.EditItemCommand, Source={x:Reference Name=BrowseItemsPage}}" CommandParameter="{Binding .}"
-                                                       IconImageSource="task.png" />
-                                                <SwipeItem Text="Usuń" BackgroundColor="#df8af2"  Command="{Binding BindingContext.DeleteItemCommand, Source={x:Reference Name=BrowseItemsPage}}"  CommandParameter="{Binding .}"
-                                                      IconImageSource="trash.png"/>
-                                            </SwipeView.RightItems>
-                                            <Grid Padding="10" x:DataType="model:Item">
-                                                <Grid.RowDefinitions>
-                                                    <RowDefinition />
-                                                    <RowDefinition />
-                                                </Grid.RowDefinitions>
-                                                <Label Text="{Binding Question}" 
+                                        <Grid Padding="10" x:DataType="model:Item">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition />
+                                                <RowDefinition />
+                                            </Grid.RowDefinitions>
+                                            <Label Text="{Binding Question}" 
                                             Style="{DynamicResource ListItemTextStyle}" 
                                             FontSize="16" Grid.Row="0"  />
-                                                <Label Text="{Binding Answear}" 
-                                            Style="{DynamicResource ListItemDetailTextStyle}"
-                                            FontSize="13" Grid.Row="1" />
-                                                <Grid.GestureRecognizers>
-                                                    <TapGestureRecognizer 
+                                            <Grid.GestureRecognizers>
+                                                <TapGestureRecognizer 
                                                 NumberOfTapsRequired="1"
                                                 Command="{Binding Source={RelativeSource AncestorType={x:Type local:ItemsViewModel}}, Path=ItemTapped}"		
                                                 CommandParameter="{Binding .}">
-                                                    </TapGestureRecognizer>
-                                                </Grid.GestureRecognizers>
-                                            </Grid>
-                                        </SwipeView>
+                                                </TapGestureRecognizer>
+                                            </Grid.GestureRecognizers>
+                                        </Grid>
                                     </DataTemplate>
                                 </CollectionView.ItemTemplate>
                             </CollectionView>
@@ -98,10 +86,7 @@
                                                     <RowDefinition />
                                                 </Grid.RowDefinitions>
                                                 <Label Text="{Binding Question}" 
-                                            Style="{DynamicResource ListItemTextStyle}" 
-                                            FontSize="16" Grid.Row="0"  />
-                                                <Label Text="{Binding Answear}" 
-                                            Style="{DynamicResource ListItemDetailTextStyle}"
+                                            Style="{DynamicResource ListItemTextStyle}"
                                             FontSize="13" Grid.Row="1" />
                                                 <Grid.GestureRecognizers>
                                                     <TapGestureRecognizer 
@@ -143,9 +128,7 @@
                                                 <Label Text="{Binding Question}" 
                                             Style="{DynamicResource ListItemTextStyle}" 
                                             FontSize="16" Grid.Row="0"  />
-                                                <Label Text="{Binding Answear}" 
-                                            Style="{DynamicResource ListItemDetailTextStyle}"
-                                            FontSize="13" Grid.Row="1" />
+                                              
                                                 <Grid.GestureRecognizers>
                                                     <TapGestureRecognizer 
                                                 NumberOfTapsRequired="1"
@@ -186,9 +169,7 @@
                                                 <Label Text="{Binding Question}" 
                                             Style="{DynamicResource ListItemTextStyle}" 
                                             FontSize="16" Grid.Row="0"  />
-                                                <Label Text="{Binding Answear}" 
-                                            Style="{DynamicResource ListItemDetailTextStyle}"
-                                            FontSize="13" Grid.Row="1" />
+                                                
                                                 <Grid.GestureRecognizers>
                                                     <TapGestureRecognizer 
                                                 NumberOfTapsRequired="1"

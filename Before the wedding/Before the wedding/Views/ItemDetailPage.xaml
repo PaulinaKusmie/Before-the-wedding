@@ -5,15 +5,15 @@
              Title="{Binding Title}">
 
     <StackLayout Spacing="20" Padding="15">
-        <Label Text="Pytanie:" FontSize="Medium" />
-        <Entry Text="{Binding Question, Mode=TwoWay}" FontSize="Medium"/>
+        <Label Text="{Binding Question, Mode=TwoWay}" FontSize="Medium"  VerticalOptions="FillAndExpand" TextDecorations="Underline" FontAttributes="Bold" />
         <Label Text="Jej odpowiedź:" FontSize="Medium" />
-        <Editor Text="okon"  BackgroundColor="#2c3e50" HeightRequest="50" />
+        <Editor Text="{Binding SheAnswear, Mode=TwoWay}" TextColor="LightPink" HeightRequest="100" FontSize="Medium" />
+        <Button Text="{Binding ButtonTextShe, Mode=OneTime}" Command="{Binding EditItemCommand}" HorizontalOptions="End"></Button>
         <Label Text="Jego Odpowiedź:" FontSize="Medium" />
-        <Entry Text="{Binding Answear, Mode=TwoWay}" FontSize="Medium"/>
-
+        <Editor Text="{Binding HeAnswear, Mode=TwoWay}"  TextColor="LightBlue"  HeightRequest="100" FontSize="Medium"/>
+        <Button Text="{Binding ButtonTextHe, Mode=OneTime}" Command="{Binding EditItemCommand}" HorizontalOptions="End"></Button>
+        
         <StackLayout Orientation="Horizontal">
-            <Button Text="{Binding ButtonText, Mode=OneTime}" Command="{Binding EditItemCommand}" HorizontalOptions="End"></Button>
             <Button Text="Usuń" Command="{Binding DeleteItemCommand}" HorizontalOptions="Start" BackgroundColor="DarkRed"></Button>
         </StackLayout>
     </StackLayout>

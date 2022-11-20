@@ -15,7 +15,8 @@ namespace Before_the_wedding.Models
         private int tabNumber;
         private string description;
         private string question;
-        private string answear;
+        private string heanswear;
+        private string sheanswear;
         SqlConnection sqlConnection;
 
 
@@ -47,12 +48,23 @@ namespace Before_the_wedding.Models
             }
         }
 
-        public string Answear
+        public string HeAnswear
         {
-            get => answear;
+            get => heanswear;
             set
             {
-                answear = value;
+                heanswear = value;
+                OnPropertyChanged();
+            }
+        }
+
+
+
+        public string SheAnswear
+        {
+            get => sheanswear;
+            set
+            {
                 OnPropertyChanged();
             }
         }
@@ -92,7 +104,7 @@ namespace Before_the_wedding.Models
                     sqlConnection.Close();
 
                 sqlConnection.Open();
-                using (SqlCommand command = new SqlCommand("SELECT Id, ISNULL(Question, '') AS Question , ISNULL(Answear, '') AS Answear , ISNULL(Description, '') Description , TabNumber  FROM Item (nolock)", sqlConnection))
+                using (SqlCommand command = new SqlCommand("SELECT Id, ISNULL(Question, '') AS Question , ISNULL(AnswearHer, '') AS AnswearHer , ISNULL(Answear, '') AS Answear , ISNULL(Description, '') Description , TabNumber  FROM Item (nolock)", sqlConnection))
                 {
 
                     SqlDataReader radera = command.ExecuteReader();
@@ -100,14 +112,16 @@ namespace Before_the_wedding.Models
                     {
 
                         Id = Guid.Parse(radera["Id"].ToString());
-                        Answear = (string)radera["Answear"]; 
+                        HeAnswear = (string)radera["Answear"];
+                        SheAnswear = (string)radera["AnswearHer"];
                         Question = (string)radera["Question"]; 
                         Description = (string)radera["Description"]; 
                         TabNumber = (int)radera["TabNumber"] as int? ?? default(int);
 
                         Item dic = new Item();
                         dic.Id = Id;
-                        dic.Answear = Answear;
+                        dic.HeAnswear = HeAnswear;
+                        dic.SheAnswear = SheAnswear;
                         dic.Question = Question;
                         dic.Description = Description;
                         dic.TabNumber = TabNumber;
@@ -181,32 +195,12 @@ namespace Before_the_wedding.Models
         }
 
 
-        public void Connect()
-        {
-            
-            sqlConnection.Open();
-
-            using (SqlCommand command2 = new SqlCommand("SELECT  * FROM Item (nolock)", sqlConnection))
-            {
-                SqlDataReader rader = command2.ExecuteReader();
-                while (rader.Read())
-                {
-                    Id = (Guid)rader["Id"];
-                    Answear = (string)rader["Question"];
-                    Question = (string)rader["Answear"];
-                }
-            }
-
-            sqlConnection.Close();
-        }
-
-
-
         public async Task<bool> AddItemAsync(Item item)
         {
+            Connection();
             try
             {
-                if ((item.Answear == string.Empty || item.Answear == null) && (item.TabNumber == 0 || item.TabNumber == -1))
+                if ((item.Question == string.Empty || item.Question == null) && (item.TabNumber == 0 || item.TabNumber == -1))
                 {
                     await App.Current.MainPage.DisplayAlert("Uwaga", "Wypełnij wszyskie pola!", "Ok");
                     return false;
@@ -240,10 +234,11 @@ namespace Before_the_wedding.Models
             try
             {
                 sqlConnection.Open();
-                using (SqlCommand command2 = new SqlCommand("UPDATE Item SET Answear = @Answer, Question = @Questions WHERE Id = @PW", sqlConnection))
+                using (SqlCommand command2 = new SqlCommand("UPDATE Item SET Answear = @Answer, AnswearHer = @AnswearHer, Question = @Questions WHERE Id = @PW", sqlConnection))
                 {
                     command2.Parameters.AddWithValue("@PW", item.Id);
-                    command2.Parameters.AddWithValue("@Answer", item.Answear);
+                    command2.Parameters.AddWithValue("@Answer", item.HeAnswear);
+                    command2.Parameters.AddWithValue("@AnswearHer", item.SheAnswear);
                     command2.Parameters.AddWithValue("@Questions", item.Question);
                     command2.ExecuteNonQuery();
                 }

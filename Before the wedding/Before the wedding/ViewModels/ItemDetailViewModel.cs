@@ -12,8 +12,10 @@ namespace Before_the_wedding.ViewModels
     {
         #region Fields
         private string question;
-        private string answear;
-        private string buttonText;
+        private string heanswear;
+        private string sheanswear;
+        private string buttonTextShe;
+        private string buttonTextHe;
         private Guid id;
         private Item item;
         #endregion
@@ -40,31 +42,53 @@ namespace Before_the_wedding.ViewModels
             }
         }
 
-        public string Answear
+        public string SheAnswear
         {
-            get => answear;
+            get => sheanswear;
             set
             {
+                ButtonTextShe = "Zapisz";
+                sheanswear = value;
 
-                answear = value;
-                if (answear.Length == 0)
-                    ButtonText = "Zapisz";
-
-                if (answear.Length > 0)
-                    ButtonText = "Edytuj";
+                if (sheanswear.Length > 0)
+                    ButtonTextShe = "Edytuj";
 
                 OnPropertyChanged();
             }
         }
 
-
-        public string ButtonText
+        public string HeAnswear
         {
-            get => buttonText;
+            get => heanswear;
+            set
+            {
+                ButtonTextHe = "Zapisz";
+                heanswear = value;
+                if (heanswear.Length > 0 )
+                    ButtonTextHe = "Edytuj";
+
+                OnPropertyChanged();
+            }
+        }
+    
+        public string ButtonTextHe
+        {
+            get => buttonTextHe;
             set
             {
 
-                buttonText = value;
+                buttonTextHe = value;
+                OnPropertyChanged();
+            }
+        }
+   
+        public string ButtonTextShe
+        {
+            get => buttonTextShe;
+            set
+            {
+
+                buttonTextShe = value;
                 OnPropertyChanged();
             }
         }
@@ -113,7 +137,7 @@ namespace Before_the_wedding.ViewModels
 
         private bool ValidateSave()
         {
-            return !String.IsNullOrWhiteSpace(answear)
+            return !String.IsNullOrWhiteSpace(heanswear)
                 && !String.IsNullOrWhiteSpace(question);
         }
 
@@ -122,7 +146,8 @@ namespace Before_the_wedding.ViewModels
             Item newItem = new Item()
             {
                 Id = Id,
-                Answear = Answear,
+                HeAnswear = HeAnswear,
+                SheAnswear = SheAnswear,
                 Question = Question
             };
 
@@ -139,8 +164,9 @@ namespace Before_the_wedding.ViewModels
             try
             {
                 Id = item.Id;
-                Answear = item.Answear;
-                Question = item.Question;
+                HeAnswear = item.HeAnswear != null ? item.HeAnswear : string.Empty;
+                SheAnswear = item.SheAnswear != null ? item.SheAnswear : string.Empty;
+                Question = item.Question != null ? item.Question : string.Empty;
             }
             catch (Exception)
             {

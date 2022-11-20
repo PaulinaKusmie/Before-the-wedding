@@ -18,7 +18,7 @@
         <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="Fill">
             <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center">
                 <ContentView Padding="0,0,0,0" VerticalOptions="FillAndExpand">
-                    <Image Source="Before_modified.png" VerticalOptions="Center" HeightRequest="250" />
+                    <Image Source="Before_modified.png" VerticalOptions="Center" HeightRequest="350" />
                 </ContentView>
             </StackLayout>
         </StackLayout>
@@ -26,6 +26,15 @@
             <StackLayout Orientation="Vertical" Padding="30,24,30,24" Spacing="10">
                 <Label Text="Zacznij przygotowania do ślubu" FontSize="Title" FontFamily="Serif"/>
                 <Label Text="Od strony psychicznej, zanim zaczniesz je ogranizować!" FontSize="16" Padding="0,0,0,0"/>
+                <Label FontSize="16" Padding="0,24,0,0">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <FormattedString.Spans>
+                                <Span Text="Napisz do nas" FontAttributes="Bold"/>
+                            </FormattedString.Spans>
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
             </StackLayout>
         </ScrollView>
     </Grid>
