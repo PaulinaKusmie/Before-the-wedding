@@ -85,20 +85,20 @@ namespace Before_the_wedding.ViewModels
 
         #endregion
 
-        public Command EditCommand { get; }
+        public Command EditItemCommand { get; }
         public Command<Item> DeleteItemCommand { get; }
 
 
         public ItemDetailViewModel()
         {
-            EditCommand = new Command(OnEdit);
+            EditItemCommand = new Command(OnEditItem);
             DeleteItemCommand = new Command<Item>(OnDeleteItem);
             this.Item = item;
         }
 
         public ItemDetailViewModel(Item item)
         {
-            EditCommand = new Command(OnEdit);
+            EditItemCommand = new Command(OnEditItem);
             DeleteItemCommand = new Command<Item>(OnDeleteItem);
             this.Item = item;
         }
@@ -106,7 +106,9 @@ namespace Before_the_wedding.ViewModels
 
         async void OnDeleteItem(Item item)
         {
-            var items = await DataStore.DeleteItemAsync(item.Id);
+            var items = await DataStore.DeleteItemAsync(Id);
+
+            await Application.Current.MainPage.Navigation.PopAsync();
         }
 
         private bool ValidateSave()
@@ -115,7 +117,7 @@ namespace Before_the_wedding.ViewModels
                 && !String.IsNullOrWhiteSpace(question);
         }
 
-        private async void OnEdit()
+        private async void OnEditItem()
         {
             Item newItem = new Item()
             {

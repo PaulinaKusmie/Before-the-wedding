@@ -6,6 +6,8 @@ using System.Windows.Input;
 using System.Data.SqlClient;
 using Xamarin.Forms;
 using Before_the_wedding.Services;
+using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 
 namespace Before_the_wedding.ViewModels
 {
@@ -15,6 +17,11 @@ namespace Before_the_wedding.ViewModels
         private string question;
         private string answear;
         private int tabNumber;
+        private TabItem _selectedItem;
+
+        public ObservableCollection<TabItem> TabPageItem { get; }
+
+
 
         #region Properties
         public Guid Id
@@ -57,6 +64,16 @@ namespace Before_the_wedding.ViewModels
             }
         }
 
+        public TabItem SelectedItem
+        {
+            get => _selectedItem;
+            set
+            {
+                SetProperty(ref _selectedItem, value);
+              
+            }
+        }
+
         #endregion
         public NewItemViewModel()
         {
@@ -64,18 +81,33 @@ namespace Before_the_wedding.ViewModels
             CancelCommand = new Command(OnCancel);
             this.PropertyChanged +=
                 (_, __) => SaveCommand.ChangeCanExecute();
+            TabPageItem = new ObservableCollection<TabItem>();
+            LoadItemToPicker();
 
-           // var items = await DataStore.LoadingItemAsync();
         }
 
         private bool ValidateSave()
         {
-            return !String.IsNullOrWhiteSpace(answear)
+            if (SelectedItem != null)
+            {
+                return SelectedItem.TabNumber > 0
                 && !String.IsNullOrWhiteSpace(question);
+            }
+
+            return false;
         }
 
 
 
+        private async Task LoadItemToPicker()
+        {
+            List<TabItem> ItemPicker =  await DataStore.LoadingTabItemAsync();
+            foreach (var item in ItemPicker)
+            {
+                TabPageItem.Add(item);
+            }
+        }
+    
 
         public Command SaveCommand { get; }
         public Command CancelCommand { get; }
@@ -91,7 +123,7 @@ namespace Before_the_wedding.ViewModels
             {
                 Id = Guid.NewGuid(),
                 Question = Question,
-                Answear = Answear
+                TabNumber = SelectedItem.TabNumber,
             };
 
             await DataStore.AddItemAsync(newItem);

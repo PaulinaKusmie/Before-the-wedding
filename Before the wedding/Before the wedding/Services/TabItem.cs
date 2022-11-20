@@ -35,6 +35,12 @@ namespace Before_the_wedding.Services
             }
         }
 
+        public override string ToString()
+        {
+            return NameTabNumber;
+        }
+
+
         #region PropertyChange
         public event PropertyChangedEventHandler PropertyChanged;
 

@@ -91,8 +91,8 @@ namespace Before_the_wedding.ViewModels
             Items4.Clear();
             try
             {
-               
-                var items = await DataStore.LoadingItemAsync();
+
+                System.Collections.Generic.List<Item> items = await DataStore.LoadingItemAsync();
                 foreach (var item in items)
                 {
                     switch (item.TabNumber)

@@ -7,11 +7,14 @@
     <StackLayout Spacing="20" Padding="15">
         <Label Text="Pytanie:" FontSize="Medium" />
         <Entry Text="{Binding Question, Mode=TwoWay}" FontSize="Medium"/>
-        <Label Text="Odpowiedź:" FontSize="Medium" />
+        <Label Text="Jej odpowiedź:" FontSize="Medium" />
+        <Editor Text="okon"  BackgroundColor="#2c3e50" HeightRequest="50" />
+        <Label Text="Jego Odpowiedź:" FontSize="Medium" />
         <Entry Text="{Binding Answear, Mode=TwoWay}" FontSize="Medium"/>
+
         <StackLayout Orientation="Horizontal">
-            <Button Text="{Binding ButtonText, Mode=OneTime}" Command="{Binding EditCommand}" HorizontalOptions="End"></Button>
-            <Button Text="Usuń" Command="{Binding EditItemCommand}" HorizontalOptions="Start"></Button>
+            <Button Text="{Binding ButtonText, Mode=OneTime}" Command="{Binding EditItemCommand}" HorizontalOptions="End"></Button>
+            <Button Text="Usuń" Command="{Binding DeleteItemCommand}" HorizontalOptions="Start" BackgroundColor="DarkRed"></Button>
         </StackLayout>
     </StackLayout>
 </ContentPage>

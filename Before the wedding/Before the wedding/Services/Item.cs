@@ -92,7 +92,7 @@ namespace Before_the_wedding.Models
                     sqlConnection.Close();
 
                 sqlConnection.Open();
-                using (SqlCommand command = new SqlCommand("SELECT Id, Question, Answear, Description, TabNumber  FROM Item (nolock)", sqlConnection))
+                using (SqlCommand command = new SqlCommand("SELECT Id, ISNULL(Question, '') AS Question , ISNULL(Answear, '') AS Answear , ISNULL(Description, '') Description , TabNumber  FROM Item (nolock)", sqlConnection))
                 {
 
                     SqlDataReader radera = command.ExecuteReader();
@@ -100,10 +100,10 @@ namespace Before_the_wedding.Models
                     {
 
                         Id = Guid.Parse(radera["Id"].ToString());
-                        Answear = (string)radera["Answear"];
-                        Question = (string)radera["Question"];
-                        Description = (string)radera["Description"];
-                        TabNumber = (int)radera["TabNumber"];
+                        Answear = (string)radera["Answear"]; 
+                        Question = (string)radera["Question"]; 
+                        Description = (string)radera["Description"]; 
+                        TabNumber = (int)radera["TabNumber"] as int? ?? default(int);
 
                         Item dic = new Item();
                         dic.Id = Id;
@@ -127,6 +127,7 @@ namespace Before_the_wedding.Models
 
         }
 
+
         public async Task<List<TabItem>> LoadingTabItemAsync()
         {
                int Number;
@@ -147,7 +148,7 @@ namespace Before_the_wedding.Models
                     while (radera.Read())
                     {
 
-                        NameTab = (string)radera["NameTab"];
+                        NameTab = (string)radera["Name"];
                         Number = (int)radera["Number"];
 
                         TabItem Tab = new TabItem();
@@ -205,17 +206,17 @@ namespace Before_the_wedding.Models
         {
             try
             {
-                if ((item.Answear == string.Empty || item.Answear == null) && (item.Question == string.Empty || item.Question == null))
+                if ((item.Answear == string.Empty || item.Answear == null) && (item.TabNumber == 0 || item.TabNumber == -1))
                 {
                     await App.Current.MainPage.DisplayAlert("Uwaga", "Wypełnij wszyskie pola!", "Ok");
                     return false;
                 }
 
                 sqlConnection.Open();
-                using (SqlCommand command2 = new SqlCommand("Insert into Item  VALUES(@Id, @Answer, @Questions)", sqlConnection))
+                using (SqlCommand command2 = new SqlCommand("Insert into Item (Id, TabNumber, Question) VALUES(@Id, @TabNumber, @Questions)", sqlConnection))
                 {
                     command2.Parameters.Add(new SqlParameter("Id", Guid.NewGuid()));
-                    command2.Parameters.Add(new SqlParameter("Answer", item.Answear));
+                    command2.Parameters.Add(new SqlParameter("TabNumber", item.TabNumber));
                     command2.Parameters.Add(new SqlParameter("Questions", item.Question));
                     command2.ExecuteNonQuery();
                 }
@@ -261,14 +262,14 @@ namespace Before_the_wedding.Models
             try
             {
                 sqlConnection.Open();
-                using (SqlCommand command2 = new SqlCommand("DELETE FROM Item (nolock) WHERE Id = @PW", sqlConnection))
+                using (SqlCommand command2 = new SqlCommand("DELETE FROM Item WHERE Id = @PW", sqlConnection))
                 {
                     command2.Parameters.Add(new SqlParameter("@PW", Id));
                     command2.ExecuteNonQuery();
                 }
                 sqlConnection.Close();
             }
-            catch
+            catch (Exception ex)
             {
                 return await Task.FromResult(false);
             }

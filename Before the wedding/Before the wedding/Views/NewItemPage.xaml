@@ -11,10 +11,8 @@
         <StackLayout Spacing="3" Padding="15">
             <Label Text="Pytanie" FontSize="Medium" />
             <Entry Text="{Binding Question, Mode=TwoWay}" FontSize="Medium" />
-            <Label Text="Odpowiedź" FontSize="Medium" />
-            <Editor Text="{Binding Answear, Mode=TwoWay}" AutoSize="TextChanges" FontSize="Medium" Margin="0" />
             <Label Text="Rodzaj pytania" FontSize="Medium" />
-            <Picker ItemsSource="" SelectedItem="" FontSize="Medium" Margin="0" />
+            <Picker ItemsSource="{Binding TabPageItem}" SelectedItem="{Binding SelectedItem}" FontSize="Medium" Margin="0" />
             <StackLayout Orientation="Horizontal">
                 <Button Text="Zamknij" Command="{Binding CancelCommand}" HorizontalOptions="FillAndExpand"></Button>
                 <Button Text="Zapisz" Command="{Binding SaveCommand}" HorizontalOptions="FillAndExpand"></Button>
