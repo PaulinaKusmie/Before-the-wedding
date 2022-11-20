@@ -13,6 +13,7 @@ namespace Before_the_wedding.ViewModels
         #region Fields
         private string question;
         private string answear;
+        private string buttonText;
         private Guid id;
         private Item item;
         #endregion
@@ -27,9 +28,6 @@ namespace Before_the_wedding.ViewModels
                 OnPropertyChanged();
             }
         }
-
-    
-
 
         public string Question
         {
@@ -49,10 +47,27 @@ namespace Before_the_wedding.ViewModels
             {
 
                 answear = value;
+                if (answear.Length == 0)
+                    ButtonText = "Zapisz";
+
+                if (answear.Length > 0)
+                    ButtonText = "Edytuj";
+
                 OnPropertyChanged();
             }
         }
 
+
+        public string ButtonText
+        {
+            get => buttonText;
+            set
+            {
+
+                buttonText = value;
+                OnPropertyChanged();
+            }
+        }
 
         public Item Item
         {
@@ -71,24 +86,28 @@ namespace Before_the_wedding.ViewModels
         #endregion
 
         public Command EditCommand { get; }
+        public Command<Item> DeleteItemCommand { get; }
 
 
         public ItemDetailViewModel()
         {
             EditCommand = new Command(OnEdit);
+            DeleteItemCommand = new Command<Item>(OnDeleteItem);
             this.Item = item;
         }
 
         public ItemDetailViewModel(Item item)
         {
             EditCommand = new Command(OnEdit);
+            DeleteItemCommand = new Command<Item>(OnDeleteItem);
             this.Item = item;
         }
 
-        //public async Task IPassValue<Item>.PassValueAsync(Item item)
-        //{
-        //    this.Item = item;
-        //}
+
+        async void OnDeleteItem(Item item)
+        {
+            var items = await DataStore.DeleteItemAsync(item.Id);
+        }
 
         private bool ValidateSave()
         {
@@ -107,6 +126,8 @@ namespace Before_the_wedding.ViewModels
 
             await DataStore.EditItemAsync(newItem);
 
+            await Application.Current.MainPage.Navigation.PopAsync();
+
         }
         
 
@@ -123,6 +144,8 @@ namespace Before_the_wedding.ViewModels
             {
                 Debug.WriteLine("Nie można załadować pytania");
             }
+
+            
         }
 
         public async Task PassValueAsync(Item item)

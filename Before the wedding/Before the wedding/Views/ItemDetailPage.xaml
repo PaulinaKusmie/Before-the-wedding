@@ -10,7 +10,8 @@
         <Label Text="Odpowiedź:" FontSize="Medium" />
         <Entry Text="{Binding Answear, Mode=TwoWay}" FontSize="Medium"/>
         <StackLayout Orientation="Horizontal">
-            <Button Text="Edytuj" Command="{Binding EditCommand}" HorizontalOptions="FillAndExpand"></Button>
+            <Button Text="{Binding ButtonText, Mode=OneTime}" Command="{Binding EditCommand}" HorizontalOptions="End"></Button>
+            <Button Text="Usuń" Command="{Binding EditItemCommand}" HorizontalOptions="Start"></Button>
         </StackLayout>
     </StackLayout>
 </ContentPage>

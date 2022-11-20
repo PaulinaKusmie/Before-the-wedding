@@ -11,42 +11,70 @@ namespace Before_the_wedding.ViewModels
 {
     public class ItemsViewModel : BaseViewModel
     {
+        #region Fields
         private Item _selectedItem;
-        public string TextSearch;
+        private string textSearch;
+        public ObservableCollection<Item> Items1 { get; }
+        public ObservableCollection<Item> Items2 { get; }
+        public ObservableCollection<Item> Items3 { get; }
+        public ObservableCollection<Item> Items4 { get; }
+        #endregion
 
-        public ObservableCollection<Item> Items { get; }
+        #region Command
         public Command LoadItemsCommand { get; }
         public Command AddItemCommand { get; }
         public Command<Item> ItemTapped { get; }
         public Command<Item> EditItemCommand { get; }
-        public Command<Item> DeleteItemCommand { get; }
+ 
+        public Command SearchCommand { get; }
+        INavigation Navigation => Application.Current.MainPage.Navigation;
 
+        #endregion
 
-        public Item SelectedItem
+        #region Properties
+        public string TextSearch
         {
-            get => _selectedItem;
+            get => textSearch;
             set
             {
-                SetProperty(ref _selectedItem, value);
-                OnItemSelected(value);
+                textSearch = value;
+                OnPropertyChanged(value);
             }
         }
+
+        public Item SelectedItem
+         {
+                get => _selectedItem;
+                set
+                {
+                    SetProperty(ref _selectedItem, value);
+                    OnItemSelected(value);
+                }
+        }
+
+        #endregion
 
         public ItemsViewModel()
         {
             Title = "Zadania";
-            Items = new ObservableCollection<Item>();
+            Items1 = new ObservableCollection<Item>();
+            Items2 = new ObservableCollection<Item>();
+            Items3 = new ObservableCollection<Item>();
+            Items4 = new ObservableCollection<Item>();
             LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
             ItemTapped = new Command<Item>(OnItemSelected);
             AddItemCommand = new Command(OnAddItem);
             EditItemCommand = new Command<Item>(OnEditItem);
-            DeleteItemCommand = new Command<Item>(OnDeleteItem);
+            SearchCommand = new Command(OnSearchCommand);
+  
         }
 
-        async void OnDeleteItem(Item item)
+
+        async void OnSearchCommand()
         {
-            var items = await DataStore.DeleteItemAsync(item.Id);
+            
         }
+
 
          async void OnEditItem(Item item)
          {
@@ -57,14 +85,35 @@ namespace Before_the_wedding.ViewModels
         async Task ExecuteLoadItemsCommand()
         {
             IsBusy = true;
-          
+            Items1.Clear();
+            Items2.Clear();
+            Items3.Clear();
+            Items4.Clear();
             try
             {
-                Items.Clear();
+               
                 var items = await DataStore.LoadingItemAsync();
                 foreach (var item in items)
                 {
-                    Items.Add(item);
+                    switch (item.TabNumber)
+                    {
+                        case 1:
+                            Items1.Add(item);
+                            break;
+                        case 2:
+                            Items2.Add(item);
+                            break;
+                        case 3:
+                           Items3.Add(item);
+                            break;
+                        case 4:
+                            Items4.Add(item);
+                            break;
+                        default:
+                            break;
+                    }
+
+
                 }
             }
             catch (Exception ex)
@@ -89,7 +138,7 @@ namespace Before_the_wedding.ViewModels
         {
             await Shell.Current.GoToAsync(nameof(NewItemPage));
         }
-        INavigation Navigation => Application.Current.MainPage.Navigation;
+
         async void OnItemSelected(Item item)
         {
             if (item == null)

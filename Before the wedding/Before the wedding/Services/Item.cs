@@ -10,14 +10,14 @@ namespace Before_the_wedding.Models
     public class Item : INotifyPropertyChanged, IDataStore<Item>
     {
         readonly List<Item> items = new List<Item>();
-        public string Text { get; set; }
-        public string Description { get; set; }
 
         private Guid id;
+        private int tabNumber;
+        private string description;
         private string question;
         private string answear;
         SqlConnection sqlConnection;
-        SqlConnection sqlConnection2;
+
 
         public Item()
         {
@@ -58,19 +58,43 @@ namespace Before_the_wedding.Models
         }
 
 
+
+        public int TabNumber
+        {
+            get => tabNumber;
+            set
+            {
+                tabNumber = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string Description
+        {
+            get => description;
+            set
+            {
+                description = value;
+                OnPropertyChanged();
+            }
+        }
+
         #endregion
 
         public async Task<List<Item>> LoadingItemAsync()
         {
-            List<Item> ItemList = new List<Item>();
+            try
+            {
+                Connection();
+                List<Item> ItemList = new List<Item>();
 
-            if (sqlConnection.State == System.Data.ConnectionState.Open)
-                sqlConnection.Close();
+                if (sqlConnection.State == System.Data.ConnectionState.Open)
+                    sqlConnection.Close();
 
-            sqlConnection.Open();
-                using (SqlCommand command = new SqlCommand("SELECT Id, Question, Answear  FROM Item (nolock)", sqlConnection))
+                sqlConnection.Open();
+                using (SqlCommand command = new SqlCommand("SELECT Id, Question, Answear, Description, TabNumber  FROM Item (nolock)", sqlConnection))
                 {
-                    
+
                     SqlDataReader radera = command.ExecuteReader();
                     while (radera.Read())
                     {
@@ -78,41 +102,81 @@ namespace Before_the_wedding.Models
                         Id = Guid.Parse(radera["Id"].ToString());
                         Answear = (string)radera["Answear"];
                         Question = (string)radera["Question"];
+                        Description = (string)radera["Description"];
+                        TabNumber = (int)radera["TabNumber"];
 
                         Item dic = new Item();
                         dic.Id = Id;
                         dic.Answear = Answear;
                         dic.Question = Question;
+                        dic.Description = Description;
+                        dic.TabNumber = TabNumber;
+
                         ItemList.Add(dic);
                     }
 
                 }
-            sqlConnection.Close();
+                sqlConnection.Close();
 
-            return ItemList;
+                return ItemList;
+            }
+            catch(Exception ex)
+            {
+                return null;
+            }
 
         }
 
+        public async Task<List<TabItem>> LoadingTabItemAsync()
+        {
+               int Number;
+               string NameTab;
+            try
+            {
+                Connection();
+                List<TabItem> ItemList = new List<TabItem>();
 
+                if (sqlConnection.State == System.Data.ConnectionState.Open)
+                    sqlConnection.Close();
+
+                sqlConnection.Open();
+                using (SqlCommand command = new SqlCommand("SELECT Name, Number FROM TabNumberItem (nolock)", sqlConnection))
+                {
+
+                    SqlDataReader radera = command.ExecuteReader();
+                    while (radera.Read())
+                    {
+
+                        NameTab = (string)radera["NameTab"];
+                        Number = (int)radera["Number"];
+
+                        TabItem Tab = new TabItem();
+                        Tab.TabNumber = Number;
+                        Tab.NameTabNumber = NameTab;
+
+                        ItemList.Add(Tab);
+                    }
+
+                }
+                sqlConnection.Close();
+
+                return ItemList;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+
+        }
 
         private void Connection()
         {
             string srvrbdname = "DictionaryDatabase";
-            string srvrname = "172.20.10.5";
+            string srvrname = "172.20.10.3";
             string srvarusername = "Paulina";
             string srvrpassword = "123456";
             string sqlconn = $"Data Source={srvrname};Initial Catalog={srvrbdname};User ID={srvarusername};Password={srvrpassword}";
             sqlConnection = new SqlConnection(sqlconn);
-        }
-
-        private void Connection2()
-        {
-            string srvrbdname = "DictionaryDatabase";
-            string srvrname = "172.20.10.5";
-            string srvarusername = "Paulina";
-            string srvrpassword = "123456";
-            string sqlconn = $"Data Source={srvrname};Initial Catalog={srvrbdname};User ID={srvarusername};Password={srvrpassword}";
-            sqlConnection2 = new SqlConnection(sqlconn);
         }
 
 
@@ -136,14 +200,6 @@ namespace Before_the_wedding.Models
         }
 
 
-        #region PropertyChange
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        public void OnPropertyChanged(string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-        #endregion
 
         public async Task<bool> AddItemAsync(Item item)
         {
@@ -231,7 +287,15 @@ namespace Before_the_wedding.Models
             return await Task.FromResult(items);
         }
 
-       
+
+        #region PropertyChange
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public void OnPropertyChanged(string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+        #endregion
     }
 
 

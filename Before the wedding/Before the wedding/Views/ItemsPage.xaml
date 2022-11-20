@@ -16,37 +16,38 @@
         <ToolbarItem Text="Add" Command="{Binding AddItemCommand}" />
     </ContentPage.ToolbarItems>
 
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Color x:Key="Accent">#df8af2</Color>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
     <StackLayout>
         <tabview:TabViewControl
-                HeaderBackgroundColor="SkyBlue"
+                HeaderBackgroundColor="{StaticResource Accent}"
                 HeaderSelectionUnderlineColor="White"
                 HeaderTabTextColor="White"
                 HeaderTabTextFontAttributes="Bold"
                 HorizontalOptions="FillAndExpand"
                 IsSwipeEnabled="True"
-                TabHeaderSpacing="50"
-         
-                VerticalOptions="Start">
+                TabHeaderSpacing="100"
+                VerticalOptions="FillAndExpand">
             <tabview:TabViewControl.ItemSource>
-                <tabview:TabItem  HeaderText="Tab 1">
-
-                    <StackLayout>
-                        <SearchBar Placeholder="Wyszukaj pytanie" TextChanged="{Binding TextSearch}"/>
-                        <RefreshView x:DataType="local:ItemsViewModel" Command="{Binding LoadItemsCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
-                            <CollectionView x:Name="ItemsListView"   ItemsSource="{Binding Items}"
-                            SelectionMode="None">
-
+                <tabview:TabItem  HeaderText="O mnie">
+                    <StackLayout >
+                        <SearchBar Text="{Binding TextSearch}" SearchCommand="{Binding SearchCommand}"/>
+                        <RefreshView x:DataType="local:ItemsViewModel" Command="{Binding LoadItemsCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}" HeightRequest="200">
+                            <CollectionView x:Name="ItemsListView"   ItemsSource="{Binding Items1}"
+                                SelectionMode="None">
                                 <CollectionView.ItemTemplate>
-
                                     <DataTemplate>
 
                                         <SwipeView>
-
                                             <SwipeView.RightItems>
                                                 <SwipeItem Text="Edytuj" BackgroundColor="CornflowerBlue"  Command="{Binding Path=BindingContext.EditItemCommand, Source={x:Reference Name=BrowseItemsPage}}" CommandParameter="{Binding .}"
-                                                   IconImageSource="task.png" />
+                                                       IconImageSource="task.png" />
                                                 <SwipeItem Text="Usuń" BackgroundColor="#df8af2"  Command="{Binding BindingContext.DeleteItemCommand, Source={x:Reference Name=BrowseItemsPage}}"  CommandParameter="{Binding .}"
-                                                  IconImageSource="trash.png"/>
+                                                      IconImageSource="trash.png"/>
                                             </SwipeView.RightItems>
                                             <Grid Padding="10" x:DataType="model:Item">
                                                 <Grid.RowDefinitions>
@@ -54,16 +55,16 @@
                                                     <RowDefinition />
                                                 </Grid.RowDefinitions>
                                                 <Label Text="{Binding Question}" 
-                                        Style="{DynamicResource ListItemTextStyle}" 
-                                        FontSize="16" Grid.Row="0"  />
+                                            Style="{DynamicResource ListItemTextStyle}" 
+                                            FontSize="16" Grid.Row="0"  />
                                                 <Label Text="{Binding Answear}" 
-                                        Style="{DynamicResource ListItemDetailTextStyle}"
-                                        FontSize="13" Grid.Row="1" />
+                                            Style="{DynamicResource ListItemDetailTextStyle}"
+                                            FontSize="13" Grid.Row="1" />
                                                 <Grid.GestureRecognizers>
                                                     <TapGestureRecognizer 
-                                            NumberOfTapsRequired="1"
-                                            Command="{Binding Source={RelativeSource AncestorType={x:Type local:ItemsViewModel}}, Path=ItemTapped}"		
-                                            CommandParameter="{Binding .}">
+                                                NumberOfTapsRequired="1"
+                                                Command="{Binding Source={RelativeSource AncestorType={x:Type local:ItemsViewModel}}, Path=ItemTapped}"		
+                                                CommandParameter="{Binding .}">
                                                     </TapGestureRecognizer>
                                                 </Grid.GestureRecognizers>
                                             </Grid>
@@ -71,22 +72,140 @@
                                     </DataTemplate>
                                 </CollectionView.ItemTemplate>
                             </CollectionView>
-
                         </RefreshView>
                     </StackLayout>
                 </tabview:TabItem>
-                <tabview:TabItem HeaderText="Tab 2">
-                    <Label
-                           TextColor="DarkRed"
-                            FontSize="Large"
-                            HorizontalOptions="Center"
-                            Text="Hello There!"
-                            VerticalOptions="Center" />
+
+                <tabview:TabItem HeaderText="Dzieci i rodzina">
+                    <StackLayout >
+                        <SearchBar Text="{Binding TextSearch}" SearchCommand="{Binding SearchCommand}"/>
+                        <RefreshView x:DataType="local:ItemsViewModel" Command="{Binding LoadItemsCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}" HeightRequest="200">
+                            <CollectionView x:Name="ItemsListView2"   ItemsSource="{Binding Items2}"
+                                SelectionMode="None">
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate>
+
+                                        <SwipeView>
+                                            <SwipeView.RightItems>
+                                                <SwipeItem Text="Edytuj" BackgroundColor="CornflowerBlue"  Command="{Binding Path=BindingContext.EditItemCommand, Source={x:Reference Name=BrowseItemsPage}}" CommandParameter="{Binding .}"
+                                                       IconImageSource="task.png" />
+                                                <SwipeItem Text="Usuń" BackgroundColor="#df8af2"  Command="{Binding BindingContext.DeleteItemCommand, Source={x:Reference Name=BrowseItemsPage}}"  CommandParameter="{Binding .}"
+                                                      IconImageSource="trash.png"/>
+                                            </SwipeView.RightItems>
+                                            <Grid Padding="10" x:DataType="model:Item">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition />
+                                                    <RowDefinition />
+                                                </Grid.RowDefinitions>
+                                                <Label Text="{Binding Question}" 
+                                            Style="{DynamicResource ListItemTextStyle}" 
+                                            FontSize="16" Grid.Row="0"  />
+                                                <Label Text="{Binding Answear}" 
+                                            Style="{DynamicResource ListItemDetailTextStyle}"
+                                            FontSize="13" Grid.Row="1" />
+                                                <Grid.GestureRecognizers>
+                                                    <TapGestureRecognizer 
+                                                NumberOfTapsRequired="1"
+                                                Command="{Binding Source={RelativeSource AncestorType={x:Type local:ItemsViewModel}}, Path=ItemTapped}"		
+                                                CommandParameter="{Binding .}">
+                                                    </TapGestureRecognizer>
+                                                </Grid.GestureRecognizers>
+                                            </Grid>
+                                        </SwipeView>
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+                            </CollectionView>
+                        </RefreshView>
+                    </StackLayout>
                 </tabview:TabItem>
+
+                <tabview:TabItem HeaderText="Życie codzienne">
+                    <StackLayout >
+                        <SearchBar Text="{Binding TextSearch}" SearchCommand="{Binding SearchCommand}"/>
+                        <RefreshView x:DataType="local:ItemsViewModel" Command="{Binding LoadItemsCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}" HeightRequest="200">
+                            <CollectionView x:Name="ItemsListView3"   ItemsSource="{Binding Items3}"
+                                SelectionMode="None">
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate>
+
+                                        <SwipeView>
+                                            <SwipeView.RightItems>
+                                                <SwipeItem Text="Edytuj" BackgroundColor="CornflowerBlue"  Command="{Binding Path=BindingContext.EditItemCommand, Source={x:Reference Name=BrowseItemsPage}}" CommandParameter="{Binding .}"
+                                                       IconImageSource="task.png" />
+                                                <SwipeItem Text="Usuń" BackgroundColor="#df8af2"  Command="{Binding BindingContext.DeleteItemCommand, Source={x:Reference Name=BrowseItemsPage}}"  CommandParameter="{Binding .}"
+                                                      IconImageSource="trash.png"/>
+                                            </SwipeView.RightItems>
+                                            <Grid Padding="10" x:DataType="model:Item">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition />
+                                                    <RowDefinition />
+                                                </Grid.RowDefinitions>
+                                                <Label Text="{Binding Question}" 
+                                            Style="{DynamicResource ListItemTextStyle}" 
+                                            FontSize="16" Grid.Row="0"  />
+                                                <Label Text="{Binding Answear}" 
+                                            Style="{DynamicResource ListItemDetailTextStyle}"
+                                            FontSize="13" Grid.Row="1" />
+                                                <Grid.GestureRecognizers>
+                                                    <TapGestureRecognizer 
+                                                NumberOfTapsRequired="1"
+                                                Command="{Binding Source={RelativeSource AncestorType={x:Type local:ItemsViewModel}}, Path=ItemTapped}"		
+                                                CommandParameter="{Binding .}">
+                                                    </TapGestureRecognizer>
+                                                </Grid.GestureRecognizers>
+                                            </Grid>
+                                        </SwipeView>
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+                            </CollectionView>
+                        </RefreshView>
+                    </StackLayout>
+                </tabview:TabItem>
+
+                <tabview:TabItem HeaderText="Życie intymne">
+                    <StackLayout >
+                        <SearchBar Text="{Binding TextSearch}" SearchCommand="{Binding SearchCommand}"/>
+                        <RefreshView x:DataType="local:ItemsViewModel" Command="{Binding LoadItemsCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}" HeightRequest="200">
+                            <CollectionView x:Name="ItemsListView4"   ItemsSource="{Binding Items4}"
+                                SelectionMode="None">
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate>
+
+                                        <SwipeView>
+                                            <SwipeView.RightItems>
+                                                <SwipeItem Text="Edytuj" BackgroundColor="CornflowerBlue"  Command="{Binding Path=BindingContext.EditItemCommand, Source={x:Reference Name=BrowseItemsPage}}" CommandParameter="{Binding .}"
+                                                       IconImageSource="task.png" />
+                                                <SwipeItem Text="Usuń" BackgroundColor="#df8af2"  Command="{Binding BindingContext.DeleteItemCommand, Source={x:Reference Name=BrowseItemsPage}}"  CommandParameter="{Binding .}"
+                                                      IconImageSource="trash.png"/>
+                                            </SwipeView.RightItems>
+                                            <Grid Padding="10" x:DataType="model:Item">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition />
+                                                    <RowDefinition />
+                                                </Grid.RowDefinitions>
+                                                <Label Text="{Binding Question}" 
+                                            Style="{DynamicResource ListItemTextStyle}" 
+                                            FontSize="16" Grid.Row="0"  />
+                                                <Label Text="{Binding Answear}" 
+                                            Style="{DynamicResource ListItemDetailTextStyle}"
+                                            FontSize="13" Grid.Row="1" />
+                                                <Grid.GestureRecognizers>
+                                                    <TapGestureRecognizer 
+                                                NumberOfTapsRequired="1"
+                                                Command="{Binding Source={RelativeSource AncestorType={x:Type local:ItemsViewModel}}, Path=ItemTapped}"		
+                                                CommandParameter="{Binding .}">
+                                                    </TapGestureRecognizer>
+                                                </Grid.GestureRecognizers>
+                                            </Grid>
+                                        </SwipeView>
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+                            </CollectionView>
+                        </RefreshView>
+                    </StackLayout>
+                </tabview:TabItem>
+                
             </tabview:TabViewControl.ItemSource>
         </tabview:TabViewControl>
-       
-     
-
     </StackLayout>
 </ContentPage>

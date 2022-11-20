@@ -10,8 +10,9 @@ namespace Before_the_wedding.Services
         Task<bool> AddItemAsync(T item);
         Task<bool> EditItemAsync(T item);
         Task<bool> DeleteItemAsync(Guid id);
-
         Task<List<Item>> LoadingItemAsync();
+        Task<List<TabItem>> LoadingTabItemAsync();
+
         Task<T> GetItemAsync(string id);
         Task<IEnumerable<T>> GetItemsAsync(bool forceRefresh = false);
 

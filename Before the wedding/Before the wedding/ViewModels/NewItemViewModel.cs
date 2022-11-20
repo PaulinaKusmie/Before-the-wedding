@@ -14,42 +14,24 @@ namespace Before_the_wedding.ViewModels
         private Guid id;
         private string question;
         private string answear;
-        enum Mode
-        {
-            Edit,
-            New
-        }
+        private int tabNumber;
 
-        public NewItemViewModel()
-        {
-            SaveCommand = new Command(OnSave, ValidateSave);
-            CancelCommand = new Command(OnCancel);
-            this.PropertyChanged +=
-                (_, __) => SaveCommand.ChangeCanExecute();
-        }
-
-        private bool ValidateSave()
-        {
-            return !String.IsNullOrWhiteSpace(answear)
-                && !String.IsNullOrWhiteSpace(question);
-        }
-
-
+        #region Properties
         public Guid Id
         {
-            get => Id;
+            get => id;
             set
-            { id = value; }
+            {
+                id = value;
+                OnPropertyChanged();
+            }
         }
-
-      
 
         public string Question
         {
             get => question;
             set
             {
-
                 question = value;
                 OnPropertyChanged();
             }
@@ -60,11 +42,39 @@ namespace Before_the_wedding.ViewModels
             get => answear;
             set
             {
-
                 answear = value;
                 OnPropertyChanged();
             }
         }
+
+        public int TabNumber
+        {
+            get => tabNumber;
+            set
+            {
+                tabNumber = value;
+                OnPropertyChanged();
+            }
+        }
+
+        #endregion
+        public NewItemViewModel()
+        {
+            SaveCommand = new Command(OnSave, ValidateSave);
+            CancelCommand = new Command(OnCancel);
+            this.PropertyChanged +=
+                (_, __) => SaveCommand.ChangeCanExecute();
+
+           // var items = await DataStore.LoadingItemAsync();
+        }
+
+        private bool ValidateSave()
+        {
+            return !String.IsNullOrWhiteSpace(answear)
+                && !String.IsNullOrWhiteSpace(question);
+        }
+
+
 
 
         public Command SaveCommand { get; }
@@ -72,7 +82,6 @@ namespace Before_the_wedding.ViewModels
 
         private async void OnCancel()
         {
-            // This will pop the current page off the navigation stack
             await Shell.Current.GoToAsync("..");
         }
 
