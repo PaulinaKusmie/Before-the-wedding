@@ -29,5 +29,9 @@ namespace Before_the_wedding.Views
             _viewModel.OnAppearing();
         }
 
+        private void SearchBar_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
     }
 }

@@ -6,18 +6,40 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using System.Data.SqlClient;
+using System.Linq;
 
 namespace Before_the_wedding.ViewModels
 {
     public class ItemsViewModel : BaseViewModel
     {
+
+
+
+
+
+
+
+
         #region Fields
         private Item _selectedItem;
         private string textSearch;
-        public ObservableCollection<Item> Items1 { get; }
-        public ObservableCollection<Item> Items2 { get; }
-        public ObservableCollection<Item> Items3 { get; }
-        public ObservableCollection<Item> Items4 { get; }
+        private string searchQuery;
+        private ObservableCollection<Item> items1;
+        public ObservableCollection<Item> Items1 
+        { 
+            
+            get => items1;
+
+            set
+            {
+                items1 = value;
+                OnPropertyChanged("Items1");
+            }
+        }
+     
+        public ObservableCollection<Item> Items2 { get; set; }
+        public ObservableCollection<Item> Items3 { get; set; }
+        public ObservableCollection<Item> Items4 { get; set; }
         #endregion
 
         #region Command
@@ -52,6 +74,18 @@ namespace Before_the_wedding.ViewModels
                 }
         }
 
+        public string SearchQuery
+        {
+            get => searchQuery;
+            set
+            {
+                searchQuery = value;
+                OnSearchCommand();
+                OnPropertyChanged();
+            }
+        }
+
+
         #endregion
 
         public ItemsViewModel()
@@ -69,10 +103,41 @@ namespace Before_the_wedding.ViewModels
   
         }
 
-
         async void OnSearchCommand()
         {
-            
+            bool refresh = true;
+
+            // if()
+             {
+                var countries1 = Items1.Where(s => s.Question.Contains());
+                Items1 = new ObservableCollection<Item>(countries1);
+                refresh = false;
+
+
+
+                var countries2 = Items2.Where(s => s.Question.Contains(TextSearch));
+                Items2 = new ObservableCollection<Item>(countries2);
+                refresh = false;
+                OnPropertyChanged();
+
+
+
+                var countries3 = Items3.Where(s => s.Question.Contains(TextSearch));
+                Items3 = new ObservableCollection<Item>(countries3);
+                refresh = false;
+                OnPropertyChanged();
+
+
+
+                var countries4 = Items4.Where(s => s.Question.Contains(TextSearch));
+                Items4 = new ObservableCollection<Item>(countries4);
+                refresh = false;
+             }
+                
+         
+
+           // if(refresh) ExecuteLoadItemsCommand();
+
         }
 
 

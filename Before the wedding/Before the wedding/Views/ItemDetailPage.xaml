@@ -1,16 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:local="clr-namespace:Before_the_wedding.Views"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:local="clr-namespace:Before_the_wedding.Views"
              x:Class="Before_the_wedding.Views.ItemDetailPage"
-             Title="{Binding Title}">
+             Title="{Binding Title}" BackgroundImageSource="Background1.png">
 
     <StackLayout Spacing="20" Padding="15">
-        <Label Text="{Binding Question, Mode=TwoWay}" FontSize="Medium"  VerticalOptions="FillAndExpand" TextDecorations="Underline" FontAttributes="Bold" />
+        <Label Text="{Binding Question, Mode=TwoWay}" FontSize="Medium"  VerticalOptions="CenterAndExpand" TextDecorations="Underline" FontAttributes="Bold" />
         <Label Text="Jej odpowiedź:" FontSize="Medium" />
-        <Editor Text="{Binding SheAnswear, Mode=TwoWay}" TextColor="LightPink" HeightRequest="100" FontSize="Medium" />
+        <Editor Text="{Binding SheAnswear, Mode=TwoWay}" TextColor="DeepPink" HeightRequest="100" FontSize="Medium" />
         <Button Text="{Binding ButtonTextShe, Mode=OneTime}" Command="{Binding EditItemCommand}" HorizontalOptions="End"></Button>
         <Label Text="Jego Odpowiedź:" FontSize="Medium" />
-        <Editor Text="{Binding HeAnswear, Mode=TwoWay}"  TextColor="LightBlue"  HeightRequest="100" FontSize="Medium"/>
+        <Editor Text="{Binding HeAnswear, Mode=TwoWay}"  TextColor="Blue"  HeightRequest="100" FontSize="Medium"/>
         <Button Text="{Binding ButtonTextHe, Mode=OneTime}" Command="{Binding EditItemCommand}" HorizontalOptions="End"></Button>
         
         <StackLayout Orientation="Horizontal">
