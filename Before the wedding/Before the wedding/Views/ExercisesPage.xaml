@@ -3,9 +3,15 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Before_the_wedding.Views.ExercisesPage" BackgroundImageSource="Background1.png">
     <ContentPage.Content>
-        <StackLayout>
-            <Button Text="Napisz List" Grid.Row="3" Grid.Column="0" Command="{Binding WriteLetterCommand}"
-                        BorderWidth="2"
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Button Text="Napisz List" Command="{Binding WriteLetterCommand}"
+                        BorderWidth="2" Grid.Column="0" Grid.Row="0"
                         TextColor="Beige"
                         BorderColor="MediumVioletRed"
                         BackgroundColor="Transparent"
@@ -13,6 +19,6 @@
                         HorizontalOptions="StartAndExpand"
                         CornerRadius="50"
                         WidthRequest="200" Margin="5" HeightRequest="60"/>
-        </StackLayout>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>

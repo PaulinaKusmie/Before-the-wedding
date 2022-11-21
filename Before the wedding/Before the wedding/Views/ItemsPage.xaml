@@ -36,7 +36,7 @@
             <tabview:TabViewControl.ItemSource>
                 <tabview:TabItem  HeaderText="O mnie">
                     <StackLayout >
-                        <SearchBar x:Name="schItem1">
+                        <SearchBar x:Name="schItem1" Text="{Binding TextSearch, Mode=TwoWay}">
                             <SearchBar.Behaviors>
                                 <services:EventToCommandBehavior EventName="TextChanged"
                                                                  Command="{Binding SearchCommand}"

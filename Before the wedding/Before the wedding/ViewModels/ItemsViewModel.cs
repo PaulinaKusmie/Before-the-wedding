@@ -14,17 +14,17 @@ namespace Before_the_wedding.ViewModels
     {
 
 
-
-
-
-
-
-
         #region Fields
         private Item _selectedItem;
         private string textSearch;
         private string searchQuery;
         private ObservableCollection<Item> items1;
+        private ObservableCollection<Item> items2;
+        private ObservableCollection<Item> items3;
+        private ObservableCollection<Item> items4;
+        #endregion
+
+        #region Properies
         public ObservableCollection<Item> Items1 
         { 
             
@@ -36,24 +36,43 @@ namespace Before_the_wedding.ViewModels
                 OnPropertyChanged("Items1");
             }
         }
-     
-        public ObservableCollection<Item> Items2 { get; set; }
-        public ObservableCollection<Item> Items3 { get; set; }
-        public ObservableCollection<Item> Items4 { get; set; }
-        #endregion
 
-        #region Command
-        public Command LoadItemsCommand { get; }
-        public Command AddItemCommand { get; }
-        public Command<Item> ItemTapped { get; }
-        public Command<Item> EditItemCommand { get; }
- 
-        public Command SearchCommand { get; }
-        INavigation Navigation => Application.Current.MainPage.Navigation;
 
-        #endregion
+        public ObservableCollection<Item> Items2
+        {
 
-        #region Properties
+            get => items2;
+
+            set
+            {
+                items2 = value;
+                OnPropertyChanged("Items2");
+            }
+        }
+
+        public ObservableCollection<Item> Items3
+        {
+
+            get => items3;
+
+            set
+            {
+                items3 = value;
+                OnPropertyChanged("Items3");
+            }
+        }
+
+        public ObservableCollection<Item> Items4
+        {
+
+            get => items4;
+
+            set
+            {
+                items4 = value;
+                OnPropertyChanged("Items4");
+            }
+        }
         public string TextSearch
         {
             get => textSearch;
@@ -65,13 +84,13 @@ namespace Before_the_wedding.ViewModels
         }
 
         public Item SelectedItem
-         {
-                get => _selectedItem;
-                set
-                {
-                    SetProperty(ref _selectedItem, value);
-                    OnItemSelected(value);
-                }
+        {
+            get => _selectedItem;
+            set
+            {
+                SetProperty(ref _selectedItem, value);
+                OnItemSelected(value);
+            }
         }
 
         public string SearchQuery
@@ -87,6 +106,18 @@ namespace Before_the_wedding.ViewModels
 
 
         #endregion
+
+        #region Command
+        public Command LoadItemsCommand { get; }
+        public Command AddItemCommand { get; }
+        public Command<Item> ItemTapped { get; }
+        public Command<Item> EditItemCommand { get; }
+ 
+        public Command SearchCommand { get; }
+        INavigation Navigation => Application.Current.MainPage.Navigation;
+
+        #endregion
+
 
         public ItemsViewModel()
         {
@@ -107,36 +138,39 @@ namespace Before_the_wedding.ViewModels
         {
             bool refresh = true;
 
-            // if()
-             {
-                var countries1 = Items1.Where(s => s.Question.Contains());
-                Items1 = new ObservableCollection<Item>(countries1);
+            if (!string.IsNullOrEmpty(TextSearch))
+            {
+                var countries = Items1.Where(s => s.Question.Contains(TextSearch));
+                Items1 = new ObservableCollection<Item>(countries);
                 refresh = false;
+               
+            }
 
-
-
-                var countries2 = Items2.Where(s => s.Question.Contains(TextSearch));
-                Items2 = new ObservableCollection<Item>(countries2);
-                refresh = false;
-                OnPropertyChanged();
-
-
-
-                var countries3 = Items3.Where(s => s.Question.Contains(TextSearch));
-                Items3 = new ObservableCollection<Item>(countries3);
+            if (!string.IsNullOrEmpty(TextSearch))
+            {
+                var countries = Items2.Where(s => s.Question.Contains(TextSearch));
+                Items2 = new ObservableCollection<Item>(countries);
                 refresh = false;
                 OnPropertyChanged();
+            }
 
-
-
-                var countries4 = Items4.Where(s => s.Question.Contains(TextSearch));
-                Items4 = new ObservableCollection<Item>(countries4);
+            if (!string.IsNullOrEmpty(TextSearch))
+            {
+                var countries = Items3.Where(s => s.Question.Contains(TextSearch));
+                Items3 = new ObservableCollection<Item>(countries);
                 refresh = false;
-             }
-                
-         
+                OnPropertyChanged();
+            }
 
-           // if(refresh) ExecuteLoadItemsCommand();
+            if (!string.IsNullOrEmpty(TextSearch))
+            {
+                var countries = Items4.Where(s => s.Question.Contains(TextSearch));
+                Items4 = new ObservableCollection<Item>(countries);
+                refresh = false;
+                OnPropertyChanged();
+            }
+
+            if(refresh) ExecuteLoadItemsCommand();
 
         }
 
