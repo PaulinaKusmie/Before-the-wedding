@@ -1,24 +1,22 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Before_the_wedding.Views.ExercisesPage" BackgroundImageSource="Background1.png">
+             x:Class="Before_the_wedding.Views.ExercisesPage" BackgroundImageSource="Background1.png"
+             xmlns:UserControl="Before_the_wedding.UserControls" xmlns:UserControl1="clr-namespace:Before_the_wedding">
     <ContentPage.Content>
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition />
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <Button Text="Napisz List" Command="{Binding WriteLetterCommand}"
-                        BorderWidth="2" Grid.Column="0" Grid.Row="0"
-                        TextColor="Beige"
-                        BorderColor="MediumVioletRed"
-                        BackgroundColor="Transparent"
-                        VerticalOptions="Center"
-                        HorizontalOptions="StartAndExpand"
-                        CornerRadius="50"
-                        WidthRequest="200" Margin="5" HeightRequest="60"/>
+            <UserControl1:Heart Text="aaaa" Grid.Column="0" Grid.Row="0" />
+            <UserControl1:Heart Text="aasssa" Grid.Column="1" Grid.Row="0"/>
+            <UserControl1:Heart  Text="adddaaa" Grid.Column="0" Grid.Row="1"/>
+            <UserControl1:Heart  Text="afffaaa"  Grid.Column="1" Grid.Row="1"/>
         </Grid>
     </ContentPage.Content>
 </ContentPage>
