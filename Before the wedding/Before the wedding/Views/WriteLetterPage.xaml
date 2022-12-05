@@ -13,7 +13,7 @@
                 <RowDefinition Height="2*" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions> 
-            <Label Text="Napisz list do swojego partnera partnerki" Grid.Row="1"  Grid.Column="0" FontSize="Medium"  VerticalOptions="Center" TextDecorations="Underline" FontAttributes="Bold" />
+            <Label Text="Napisz list do swojego partnera partnerki" Grid.Row="0"  Grid.Column="0" FontSize="Medium"  VerticalOptions="Center" TextDecorations="Underline" FontAttributes="Bold" />
             <Editor Text="{Binding ListText, Mode=TwoWay}" Grid.Row="2"  Grid.Column="0" HeightRequest="250" FontSize="Medium" />
             <Button Text="{Binding SaveListText, Mode=OneTime}"   Grid.Row="3" Grid.Column="0"  Command="{Binding SaveListTextCommand}" HorizontalOptions="End" ></Button>
         </Grid>

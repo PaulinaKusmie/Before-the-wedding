@@ -38,9 +38,9 @@ namespace Before_the_wedding.ViewModels
             set
             {
                 listText = "Zapisz";
-                saveListText = value;
+                listText = value;
 
-                if (sheanswear.Length > 0)
+                if (sheanswear != null && sheanswear.Length > 0)
                     saveListText = "Edytuj";
 
                 OnPropertyChanged();

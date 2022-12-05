@@ -14,13 +14,22 @@ namespace Before_the_wedding.ViewModels
     class ExercisesViewModel : BindableObject, INotifyPropertyChanged
     {
   
-        public ICommand HeardCommand { get; set; }
+        public ICommand Heard1Command { get; set; }
+        public ICommand Heard2Command { get; set; }
+        public ICommand Heard3Command { get; set; }
+        public ICommand Heard4Command { get; set; }
+        public ICommand Heard5Command { get; set; }
+
 
         INavigation Navigation => Application.Current.MainPage.Navigation;
 
         public ExercisesViewModel()
         {
-            HeardCommand = new Command(OnHeard);
+            Heard1Command = new Command(OnHeard);
+            Heard2Command = new Command(OnHeard);
+            Heard3Command = new Command(OnHeard);
+            Heard4Command = new Command(OnHeard);
+            Heard5Command = new Command(OnHeard);
         }
 
 
