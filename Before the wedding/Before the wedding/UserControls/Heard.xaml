@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Before_the_wedding.UserControls.Heard">
+    <ContentView.Content>
+        <Grid HeightRequest="200"  WidthRequest ="400">
+            <Frame Opacity="0">
+                <Label x:Name="textLabel" Text="OKON"/>
+                <Frame.GestureRecognizers >
+                    <TapGestureRecognizer x:Name="tapGestureRecognizer" NumberOfTapsRequired="1" Tapped="tapGestureRecognizer_Tapped_1" />
+                </Frame.GestureRecognizers>
+            </Frame>
+            <Path x:Name="path" Data="M81.0485 178.2C73.0317 166.869 64.7849 159.216 55.1676 150.291C54.3805 149.561 53.5842 148.822 52.7781 148.071C41.9757 138.018 29.3726 125.914 13.3959 105.195C5.47709 94.9249 1.24653 80.4098 0.593267 65.4469C-0.0598718 50.4869 2.86605 35.1414 9.19155 23.2346C15.5148 11.332 25.2029 2.91393 38.0799 1.65388C50.9771 0.391866 67.219 6.29365 86.6701 23.3757L86.9684 23.6377L87.2912 23.4065C104.866 10.8172 120.106 5.56446 132.368 5.73433C144.606 5.90388 153.918 11.4733 159.702 20.6418C171.296 39.0192 168.784 72.0217 146.614 105.178C135.479 116.009 123.568 129.716 109.488 145.919C100.917 155.783 91.5417 166.572 81.0485 178.2Z" Fill="red" Stroke="red"  >
+                <Path.RenderTransform>
+                    <RotateTransform x:Name="rotateTransform" CenterX="0" CenterY="0"   />
+                </Path.RenderTransform>
+            </Path>
+        </Grid>
+    </ContentView.Content>
+</ContentView>

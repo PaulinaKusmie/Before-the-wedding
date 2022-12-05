@@ -19,7 +19,6 @@ namespace Before_the_wedding.ViewModels
         public ICommand SaveListTextCommand { get; set; }
         #endregion
 
-
         #region Properties
 
         public string SaveListText

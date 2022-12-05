@@ -1,8 +1,22 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Before_the_wedding.Views.ExercisesPage" BackgroundImageSource="Background1.png"
-             xmlns:UserControl="Before_the_wedding.UserControls" xmlns:UserControl1="clr-namespace:Before_the_wedding">
+             x:Class="Before_the_wedding.Views.ExercisesPage"
+             xmlns:UserControl="Before_the_wedding.UserControls" 
+             xmlns:UserControl1="clr-namespace:Before_the_wedding"
+             xmlns:local="clr-namespace:Before_the_wedding.ViewModels" 
+             xmlns:usercontrols="clr-namespace:Before_the_wedding.UserControls"
+             x:Name="MyPage">
+
+
+
+
+    <!--<StackLayout>
+        --><!--<UserControl1:Heart Text="Heard1" TranslationX="35"  Angle="12"  Grid.Column="0" Grid.Row="0"  ClickCommand="{Binding HeardCommand}" VerticalOptions="CenterAndExpand"/>--><!--
+        <usercontrols:Heard HClickCommand="{Binding HeardCommand}"  ></usercontrols:Heard>
+
+    </StackLayout>-->
+    <!--BackgroundImageSource="Background1.png"-->
     <ContentPage.Content>
         <Grid>
             <Grid.ColumnDefinitions>
@@ -12,11 +26,15 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
                 <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <UserControl1:Heart Text="aaaa" Grid.Column="0" Grid.Row="0" />
-            <UserControl1:Heart Text="aasssa" Grid.Column="1" Grid.Row="0"/>
-            <UserControl1:Heart  Text="adddaaa" Grid.Column="0" Grid.Row="1"/>
-            <UserControl1:Heart  Text="afffaaa"  Grid.Column="1" Grid.Row="1"/>
+
+
+            <usercontrols:Heard Text="Heard2"   HClickCommand="{Binding HeardCommand}"  Grid.Column="1" Grid.Row="0"/>
+            <usercontrols:Heard  Text="Heard3"    HClickCommand="{Binding HeardCommand}"  ScaleX="0.9"  ScaleY="0.7" Grid.Column="0" Grid.Row="1"/>
+            <usercontrols:Heard  Text="Heard4"    HClickCommand="{Binding HeardCommand}" ScaleX="0.8"  ScaleY="0.5" Grid.Column="0" Grid.Row="2"/>
+            <usercontrols:Heard  Text="Heard5"   HClickCommand="{Binding HeardCommand}" ScaleX="0.8"  ScaleY="0.5" Grid.Column="1" Grid.Row="2"/>
+            <usercontrols:Heard  Text="Heard6"   HClickCommand="{Binding HeardCommand}"  ScaleX="0.8"  ScaleY="0.5"  Grid.Column="1" Grid.Row="1"/>
         </Grid>
     </ContentPage.Content>
 </ContentPage>

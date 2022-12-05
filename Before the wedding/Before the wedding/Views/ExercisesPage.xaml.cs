@@ -10,13 +10,18 @@ using Xamarin.Forms.Xaml;
 
 namespace Before_the_wedding.Views
 {
-    [XamlCompilation(XamlCompilationOptions.Compile)]
+  
     public partial class ExercisesPage : ContentPage
     {
         public ExercisesPage()
         {
-            BindingContext = new ExercisesViewModel();
             InitializeComponent();
+            BindingContext = new ExercisesViewModel();
+            
         }
+
+
+
+
     }
 }

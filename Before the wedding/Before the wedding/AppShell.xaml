@@ -2,7 +2,10 @@
 <Shell xmlns="http://xamarin.com/schemas/2014/forms" 
        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
        xmlns:local="clr-namespace:Before_the_wedding.Views"
-       Title="Before_the_wedding"
+       xmlns:local2="clr-namespace:Before_the_wedding.ViewModels"  
+       xmlns:local3="clr-namespace:Before_the_wedding.Models"  
+       xmlns:local4="clr-namespace:Before_the_wedding.UserControls"  
+      Title="Before_the_wedding"
        x:Class="Before_the_wedding.AppShell">
 
     <!--

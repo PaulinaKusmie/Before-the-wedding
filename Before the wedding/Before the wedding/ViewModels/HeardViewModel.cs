@@ -1,30 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
+﻿using Before_the_wedding.Views;
+using Before_the_wedding.ViewModels;
 using Before_the_wedding.Models;
-using Before_the_wedding.Services;
-using Before_the_wedding.Views;
+using System;
+using System.Collections.Generic;
+using System.Text;
 using Xamarin.Forms;
+using System.Windows.Input;
+using System.ComponentModel;
 
-namespace Before_the_wedding.ViewModels 
+namespace Before_the_wedding.ViewModels
 {
-    class ExercisesViewModel : BindableObject, INotifyPropertyChanged
+    public class HeardViewModel: INotifyPropertyChanged
     {
-  
-        public ICommand HeardCommand { get; set; }
-
         INavigation Navigation => Application.Current.MainPage.Navigation;
-
-        public ExercisesViewModel()
+        public ICommand HeardCommand { get; set; }
+        public HeardViewModel()
         {
             HeardCommand = new Command(OnHeard);
         }
 
-
-        private async void OnHeard(object obj)
+        private async void OnHeard()
         {
             await Navigation.PushModalAsync(new WriteLetterPage());
         }

@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Before_the_wedding.Views.ItemsPage"
              Title="{Binding Title}"
-              xmlns:tabview="clr-namespace:Xam.Plugin.TabView;assembly=Xam.Plugin.TabView"
+             xmlns:tabview="clr-namespace:Xam.Plugin.TabView;assembly=Xam.Plugin.TabView"
              xmlns:local="clr-namespace:Before_the_wedding.ViewModels"  
              xmlns:model="clr-namespace:Before_the_wedding.Models"  
              xmlns:services="clr-namespace:Before_the_wedding.Services"
