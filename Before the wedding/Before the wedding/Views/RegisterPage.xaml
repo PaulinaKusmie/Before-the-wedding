@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Before_the_wedding.Views.RegisterPage"
+                        BackgroundImageSource="Pattern.png">
+    
+    ///TU setter!!!
+    <ContentPage Title="Ona" IconImageSource="courses" BackgroundColor="#7c65b5" >
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="3*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" /> 
+
+            </Grid.RowDefinitions>
+            <Label Text="Imie " Grid.Row="2"  Grid.Column="0" FontSize="Large"  Margin="10" VerticalOptions="Center"  HorizontalOptions="Start" />
+            <Entry Text="{Binding NameSheText, Mode=TwoWay}" Grid.Row="2"  Grid.Column="0" HeightRequest="250" FontSize="Medium"    WidthRequest="370" HorizontalOptions="End"/>
+            <Label Text="Nazwisko " Grid.Row="3"  Grid.Column="0" FontSize="Large"  Margin="10" VerticalOptions="Center"   HorizontalOptions="Start"/>
+            <Entry Text="{Binding SurnameSheText, Mode=TwoWay}" Grid.Row="3"  Grid.Column="0" HeightRequest="250" FontSize="Medium"   WidthRequest="370" HorizontalOptions="End"/>
+            <Label Text="Login "  Grid.Row="4"  Grid.Column="0" FontSize="Large"  Margin="10" VerticalOptions="Center"  HorizontalOptions="Start" />
+            <Entry Text="{Binding LoginSheText, Mode=TwoWay}" Grid.Row="4"  Grid.Column="0" HeightRequest="250" FontSize="Medium"    WidthRequest="370" HorizontalOptions="End" />
+            <Label Text="Hasło"  Grid.Row="5"  Grid.Column="0" FontSize="Large"  Margin="10" VerticalOptions="Center"  HorizontalOptions="Start" />
+            <Entry Text="{Binding PasswordSheText, Mode=TwoWay}" Grid.Row="5"  Grid.Column="0" HeightRequest="250" FontSize="Medium"  WidthRequest="370" HorizontalOptions="End" IsPassword="True"  />
+            <Button Text="Zarejestuj się" BorderColor="Beige"  Margin="10" HeightRequest="40" WidthRequest="100" Grid.Row="8" Grid.Column="0"  Command="{Binding SaveAccountCommand}" HorizontalOptions="End" VerticalOptions="Start" ></Button>
+        </Grid>
+    </ContentPage>
+
+    <ContentPage Title="On" IconImageSource="icon_feed">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="3*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+
+            </Grid.RowDefinitions>
+            <Label Text="Imie " Grid.Row="2"  Grid.Column="0" FontSize="Large"  Margin="10" VerticalOptions="Center"  HorizontalOptions="Start" />
+            <Entry Text="{Binding NameHeText, Mode=TwoWay}" Grid.Row="2"  Grid.Column="0" HeightRequest="250" FontSize="Medium"    WidthRequest="370" HorizontalOptions="End"/>
+            <Label Text="Nazwisko " Grid.Row="3"  Grid.Column="0" FontSize="Large"  Margin="10" VerticalOptions="Center"   HorizontalOptions="Start"/>
+            <Entry Text="{Binding SurnameHeText, Mode=TwoWay}" Grid.Row="3"  Grid.Column="0" HeightRequest="250" FontSize="Medium"   WidthRequest="370" HorizontalOptions="End"/>
+            <Label Text="Login "  Grid.Row="4"  Grid.Column="0" FontSize="Large"  Margin="10" VerticalOptions="Center"  HorizontalOptions="Start" />
+            <Entry Text="{Binding LoginHeText, Mode=TwoWay}" Grid.Row="4"  Grid.Column="0" HeightRequest="250" FontSize="Medium"    WidthRequest="370" HorizontalOptions="End" />
+            <Label Text="Hasło"  Grid.Row="5"  Grid.Column="0" FontSize="Large"  Margin="10" VerticalOptions="Center"  HorizontalOptions="Start" />
+            <Entry Text="{Binding PasswordHeText, Mode=TwoWay}" Grid.Row="5"  Grid.Column="0" HeightRequest="250" FontSize="Medium"  WidthRequest="370" HorizontalOptions="End" IsPassword="True"  />
+            <Button Text="Zarejestuj się" BorderColor="Beige"  Margin="10" HeightRequest="40" WidthRequest="100" Grid.Row="8" Grid.Column="0"  Command="{Binding SaveAccountCommand}" HorizontalOptions="End" VerticalOptions="Start" ></Button>
+        </Grid>
+    </ContentPage>
+</TabbedPage>

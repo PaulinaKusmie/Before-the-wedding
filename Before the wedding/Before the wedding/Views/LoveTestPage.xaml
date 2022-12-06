@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Before_the_wedding.Views.LoveTestPage"
+                        BackgroundImageSource="Pattern.png">
+    <ContentPage.Content>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Label Text="Zrób test określający Twój język miłości" FontFamily="AmaticSC-Bold" Grid.Row="0"  Grid.ColumnSpan="4" FontSize="50" Margin="10" VerticalOptions="Center" FontAttributes="Bold" />
+            <Label Text="{Binding DescriptionLoveText, Mode=TwoWay}"  FontFamily="AmaticSC-Bold" Grid.Row="1"   Grid.ColumnSpan="4" FontSize="Large"  Margin="10" VerticalOptions="Center" FontAttributes="Bold" />
+            <Frame BorderColor="Beige" BackgroundColor="Transparent" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" HeightRequest="150" WidthRequest="150" 
+              CornerRadius="20"
+              HasShadow="True">
+                <Button Text="Zrób test" BackgroundColor="DarkRed" Margin="10" HeightRequest="250" WidthRequest="250"  Command="{Binding LoveTestCommand}" HorizontalOptions="End" VerticalOptions="Start" ></Button>
+            </Frame>
+
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

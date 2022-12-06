@@ -17,7 +17,7 @@ namespace Before_the_wedding.ViewModels
         public ICommand WriteLetterCommand { get; set; }
         public ICommand ValueCommand { get; set; }
         public ICommand WhenIFeelCommand { get; set; }
-        public ICommand Heard4Command { get; set; }
+        public ICommand LoveTestCommand { get; set; }
         public ICommand Heard5Command { get; set; }
 
 
@@ -28,7 +28,7 @@ namespace Before_the_wedding.ViewModels
             WriteLetterCommand = new Command(OnWriteLetter);
             ValueCommand = new Command(OnValue);
             WhenIFeelCommand = new Command(OnWhenIFeel);
-            //Heard4Command = new Command(OnHeard);
+            LoveTestCommand = new Command(OnLoveTest);
             //Heard5Command = new Command(OnHeard);
         }
 
@@ -50,6 +50,10 @@ namespace Before_the_wedding.ViewModels
             await Navigation.PushModalAsync(new WhenIFeelPage());
         }
 
+        private async void OnLoveTest(object obj)
+        {
+            await Navigation.PushModalAsync(new LoveTestPage());
+        }
 
         #region INPC
         public void OnPropertyChanged(string propertyName)

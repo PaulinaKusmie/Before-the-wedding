@@ -24,7 +24,7 @@
             <usercontrols:Heard Text="Heard2" HClickCommand="{Binding WriteLetterCommand}"  ScaleX="0.6"  ScaleY="0.5"  Grid.Column="1" Grid.Row="0"/>
             <usercontrols:Heard  Text="Heard3" HClickCommand="{Binding ValueCommand}"  ScaleX="0.9"  ScaleY="0.7" Grid.Column="0" Grid.Row="1"/>
             <usercontrols:Heard  Text="Heard4" HClickCommand="{Binding WhenIFeelCommand}" ScaleX="0.8"  ScaleY="0.5" Grid.Column="0" Grid.Row="2"/>
-            <usercontrols:Heard  Text="Heard5" HClickCommand="{Binding Heard4Command}" ScaleX="0.8"  ScaleY="0.5" Grid.Column="1" Grid.Row="2"/>
+            <usercontrols:Heard  Text="Heard5" HClickCommand="{Binding LoveTestCommand}" ScaleX="0.8"  ScaleY="0.5" Grid.Column="1" Grid.Row="2"/>
             <usercontrols:Heard  Text="Heard6" HClickCommand="{Binding Heard5Command}"  ScaleX="0.8"  ScaleY="0.5"  Grid.Column="1" Grid.Row="1"/>
         </Grid>
     </ContentPage.Content>

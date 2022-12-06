@@ -2,23 +2,48 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace Before_the_wedding.ViewModels
 {
     public class LoginViewModel : BaseViewModel
     {
-        public Command LoginCommand { get; }
+        #region Fields
+        private string loginText;
+        private string passwordText;
+        private Guid id;
+        INavigation Navigation => Application.Current.MainPage.Navigation;
+        #endregion
+        public ICommand LoginCommand => new Command(() => { Navigation.PushModalAsync(new RegisterPage()); });
+
+        #region Properties
+        public string LoginText
+        {
+            get => loginText;
+            set
+            {
+                loginText = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string PasswordText
+        {
+            get => passwordText;
+            set
+            {
+                passwordText = value;
+                OnPropertyChanged();
+            }
+        }
+        #endregion
 
         public LoginViewModel()
         {
-            LoginCommand = new Command(OnLoginClicked);
+            
         }
 
-        private async void OnLoginClicked(object obj)
-        {
-            // Prefixing with `//` switches to a different navigation stack instead of pushing to the active one
-            await Shell.Current.GoToAsync($"//{nameof(AboutPage)}");
-        }
+   
     }
 }

@@ -5,10 +5,43 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              x:Class="Before_the_wedding.Views.LoginPage"
-             Shell.NavBarIsVisible="False">
+             Shell.NavBarIsVisible="False"
+             BackgroundImageSource="Pattern.png">
     <ContentPage.Content>
-        <StackLayout Padding="10,0,10,0" VerticalOptions="Center">
-            <Button VerticalOptions="Center" Text="Login" Command="{Binding LoginCommand}"/>
-        </StackLayout>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="3*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            
+            <Label Text="Logowanie" FontFamily="AmaticSC-Bold" Grid.Row="0"  Grid.Column="0" FontSize="48"  Margin="10" VerticalOptions="Center" />
+            <Label Text="Login:  " Grid.Row="2"  Grid.Column="0" FontSize="Large"  Margin="10" VerticalOptions="Center"  HorizontalOptions="Start" />
+            <Entry Text="{Binding LoginText, Mode=TwoWay}" Grid.Row="2"  Grid.Column="0" HeightRequest="250" FontSize="Medium"    WidthRequest="340" HorizontalOptions="End"/>
+            <Label Text="Hasło: " Grid.Row="3"  Grid.Column="0" FontSize="Large"  Margin="10" VerticalOptions="Center"   HorizontalOptions="Start"/>
+            <Entry Text="{Binding PasswordText, Mode=TwoWay}" Grid.Row="3"  Grid.Column="0" HeightRequest="250" FontSize="Medium"   WidthRequest="340" HorizontalOptions="End" IsPassword="True"/>
+            <Button Text="Zaloguj się" BorderColor="Beige"  Margin="4" HeightRequest="40" WidthRequest="100" Grid.Row="4" Grid.Column="0"  Command="{Binding LoginCommand}" HorizontalOptions="End" VerticalOptions="Start" ></Button>
+            <Label Text="Nie masz konta? "  Grid.Row="5"  Grid.Column="0" FontSize="15"  VerticalOptions="Start" />
+            <Label  Grid.Row="5"  Grid.Column="0" FontSize="15"  VerticalOptions="End">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span TextColor="Blue"
+                              Text="Zarejstruj się"
+                              TextDecorations="Underline">
+                            <Span.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding LoginCommand}" />
+                            </Span.GestureRecognizers>
+                        </Span>
+                    </FormattedString>
+                </Label.FormattedText>
+                
+            </Label>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>

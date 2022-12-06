@@ -31,7 +31,7 @@
             <Entry Text="{Binding FourthEntryText, Mode=TwoWay}" Grid.Row="5"  Grid.Column="0" HeightRequest="250" FontSize="Medium"  WidthRequest="370" HorizontalOptions="End"  />
                 <Label Text="5. "  Grid.Row="6"  Grid.Column="0" FontSize="Large"  Margin="10" VerticalOptions="Center"  HorizontalOptions="Start" />
             <Entry Text="{Binding FifthEntryText, Mode=TwoWay}" Grid.Row="6"  Grid.Column="0" HeightRequest="250" FontSize="Medium"  WidthRequest="370" HorizontalOptions="End" />
-                <Button Text="{Binding SaveValueText, Mode=OneTime}"   Margin="10" HeightRequest="40" WidthRequest="100" Grid.Row="8" Grid.Column="0"  Command="{Binding SaveValueCommand}" HorizontalOptions="End" VerticalOptions="Start" ></Button>
+            <Button Text="{Binding SaveValueText, Mode=OneTime}" BorderColor="Beige"  Margin="10" HeightRequest="40" WidthRequest="100" Grid.Row="8" Grid.Column="0"  Command="{Binding SaveValueCommand}" HorizontalOptions="End" VerticalOptions="Start" ></Button>
         </Grid>
     </ContentPage.Content>
 </ContentPage>

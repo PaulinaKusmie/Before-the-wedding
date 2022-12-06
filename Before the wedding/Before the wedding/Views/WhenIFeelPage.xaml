@@ -20,7 +20,7 @@
             <Frame BorderColor="Black" Margin="10" Grid.Row="2" HeightRequest="150">
                 <Editor Text="{Binding FeelText, Mode=TwoWay}" Grid.Column="0" FontSize="Medium" />
             </Frame>
-            <Button Text="{Binding SaveFeelText, Mode=OneTime}"   Margin="10" HeightRequest="40" WidthRequest="100" Grid.Row="3" Grid.Column="0"  Command="{Binding SaveFeelCommand}" HorizontalOptions="End" VerticalOptions="Start" ></Button>
+            <Button Text="{Binding SaveFeelText, Mode=OneTime}" BorderColor="Beige"  Margin="10" HeightRequest="40" WidthRequest="100" Grid.Row="3" Grid.Column="0"  Command="{Binding SaveFeelCommand}" HorizontalOptions="End" VerticalOptions="Start" ></Button>
         </Grid>
     </ContentPage.Content>
 </ContentPage>

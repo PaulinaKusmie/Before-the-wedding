@@ -9,9 +9,6 @@ namespace Before_the_wedding.ViewModels
     class WhenIFeelViewModel : BaseViewModel
     {
 
-
-
-
         #region Fields
         private string feelText;
         private string saveFeelText;
