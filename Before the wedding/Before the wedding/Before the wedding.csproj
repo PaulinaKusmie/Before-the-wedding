@@ -5,6 +5,20 @@
     <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <WarningLevel>5</WarningLevel>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="AmaticSC-Bold.ttf" />
+    <None Remove="AmaticSC-Regular.ttf" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="AmaticSC-Bold.ttf" />
+    <EmbeddedResource Include="AmaticSC-Regular.ttf" />
+  </ItemGroup>
+
   <ItemGroup>
     <PackageReference Include="System.Data.SqlClient" Version="4.8.5" />
     <PackageReference Include="Xam.Plugin.TabView" Version="1.1.1" />
@@ -24,6 +38,12 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\ExercisesPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\ValuePage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\WhenIFeelPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\WriteLetterPage.xaml">

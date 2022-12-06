@@ -16,7 +16,7 @@ namespace Before_the_wedding.ViewModels
         private string buttonTextShe;
         private string buttonTextHe;
         private Guid id;
-        public ICommand SaveListTextCommand { get; set; }
+        public ICommand SaveLetterCommand { get; set; }
         #endregion
 
         #region Properties
@@ -37,7 +37,7 @@ namespace Before_the_wedding.ViewModels
             get => listText;
             set
             {
-                listText = "Zapisz";
+               
                 listText = value;
 
                 if (sheanswear != null && sheanswear.Length > 0)
@@ -51,11 +51,12 @@ namespace Before_the_wedding.ViewModels
 
         public WriteLetterViewModel()
         {
-            SaveListTextCommand = new Command(OnSaveListText);
+            SaveLetterCommand = new Command(OnSaveLetter);
+            SaveListText = "Zapisz";
         }
 
 
-        private async void OnSaveListText()
+        private async void OnSaveLetter()
         {
            
         }

@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Before_the_wedding.Views.WhenIFeelPage"
+              BackgroundImageSource="Pattern.png">
+    <ContentPage.Content>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="4*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+
+            <Label  Text="{Binding LabelFeelText, Mode=TwoWay}"  FontFamily="AmaticSC-Bold" Grid.Row="0"  FontSize="28" Grid.Column="0"   Margin="10" VerticalOptions="Center" FontAttributes="Bold" />
+            <Frame BorderColor="Black" Margin="10" Grid.Row="2" HeightRequest="150">
+                <Editor Text="{Binding FeelText, Mode=TwoWay}" Grid.Column="0" FontSize="Medium" />
+            </Frame>
+            <Button Text="{Binding SaveFeelText, Mode=OneTime}"   Margin="10" HeightRequest="40" WidthRequest="100" Grid.Row="3" Grid.Column="0"  Command="{Binding SaveFeelCommand}" HorizontalOptions="End" VerticalOptions="Start" ></Button>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

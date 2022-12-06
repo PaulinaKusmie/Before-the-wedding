@@ -10,6 +10,12 @@ namespace Before_the_wedding.ViewModels
 {
     public class BaseViewModel : INotifyPropertyChanged
     {
+        public enum SexMode
+        {
+            Woman,
+            Man
+        }
+
         public IDataStore<Item> DataStore => DependencyService.Get<IDataStore<Item>>();
         public IPassValue<Item> PassesValues => DependencyService.Get<IPassValue<Item>>();
 

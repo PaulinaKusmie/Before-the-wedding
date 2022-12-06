@@ -14,9 +14,9 @@ namespace Before_the_wedding.ViewModels
     class ExercisesViewModel : BindableObject, INotifyPropertyChanged
     {
   
-        public ICommand Heard1Command { get; set; }
-        public ICommand Heard2Command { get; set; }
-        public ICommand Heard3Command { get; set; }
+        public ICommand WriteLetterCommand { get; set; }
+        public ICommand ValueCommand { get; set; }
+        public ICommand WhenIFeelCommand { get; set; }
         public ICommand Heard4Command { get; set; }
         public ICommand Heard5Command { get; set; }
 
@@ -25,18 +25,31 @@ namespace Before_the_wedding.ViewModels
 
         public ExercisesViewModel()
         {
-            Heard1Command = new Command(OnHeard);
-            Heard2Command = new Command(OnHeard);
-            Heard3Command = new Command(OnHeard);
-            Heard4Command = new Command(OnHeard);
-            Heard5Command = new Command(OnHeard);
+            WriteLetterCommand = new Command(OnWriteLetter);
+            ValueCommand = new Command(OnValue);
+            WhenIFeelCommand = new Command(OnWhenIFeel);
+            //Heard4Command = new Command(OnHeard);
+            //Heard5Command = new Command(OnHeard);
         }
 
 
-        private async void OnHeard(object obj)
+        private async void OnWriteLetter(object obj)
         {
             await Navigation.PushModalAsync(new WriteLetterPage());
         }
+
+        private async void OnValue(object obj)
+        {
+            await Navigation.PushModalAsync(new ValuePage());
+        }
+
+        
+
+        private async void OnWhenIFeel(object obj)
+        {
+            await Navigation.PushModalAsync(new WhenIFeelPage());
+        }
+
 
         #region INPC
         public void OnPropertyChanged(string propertyName)
