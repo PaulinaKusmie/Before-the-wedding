@@ -4,7 +4,7 @@
              x:Class="Before_the_wedding.Views.RegisterPage"
                         BackgroundImageSource="Pattern.png">
     
-    ///TU setter!!!
+  <!--TU setter!!!-->
     <ContentPage Title="Ona" IconImageSource="courses" BackgroundColor="#7c65b5" >
         <Grid>
             <Grid.ColumnDefinitions>
