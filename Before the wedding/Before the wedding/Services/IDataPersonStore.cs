@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 
 namespace Before_the_wedding.Services
 {
-    public interface IPassValue<T>
+    public interface IDataPersonStore<T>
     {
-        Task PassValueAsync(T item);
+        Task<List<Person>> Login();
     }
 }

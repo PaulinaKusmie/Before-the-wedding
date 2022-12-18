@@ -8,7 +8,7 @@ using Before_the_wedding.Services;
 
 namespace Before_the_wedding.ViewModels
 {
-    public class ItemDetailViewModel : BaseViewModel, IPassValue<Item>
+    public class ItemDetailViewModel : BaseViewModel
     {
         #region Fields
         private string question;
@@ -176,9 +176,6 @@ namespace Before_the_wedding.ViewModels
             
         }
 
-        public async Task PassValueAsync(Item item)
-        {
-           /////////
-        }
+      
     }
 }

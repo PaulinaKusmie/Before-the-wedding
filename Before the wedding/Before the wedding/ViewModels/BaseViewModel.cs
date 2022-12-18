@@ -17,7 +17,7 @@ namespace Before_the_wedding.ViewModels
         }
 
         public IDataStore<Item> DataStore => DependencyService.Get<IDataStore<Item>>();
-        public IPassValue<Item> PassesValues => DependencyService.Get<IPassValue<Item>>();
+        public IDataPersonStore<Person> DataPersonStore => DependencyService.Get<IDataPersonStore<Person>>();
 
         bool isBusy = false;
         public bool IsBusy

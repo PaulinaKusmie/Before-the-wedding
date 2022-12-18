@@ -35,7 +35,7 @@
                               Text="Zarejstruj się"
                               TextDecorations="Underline">
                             <Span.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding LoginCommand}" />
+                                <TapGestureRecognizer Command="{Binding RegisterCommand}" />
                             </Span.GestureRecognizers>
                         </Span>
                     </FormattedString>

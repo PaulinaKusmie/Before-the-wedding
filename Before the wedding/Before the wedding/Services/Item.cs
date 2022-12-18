@@ -22,7 +22,7 @@ namespace Before_the_wedding.Models
 
         public Item()
         {
-            Connection();
+            //Connection();
         }
        
 
@@ -189,11 +189,12 @@ namespace Before_the_wedding.Models
             string srvrbdname = "DictionaryDatabase";
             string srvrname = "172.20.10.3";
             string srvarusername = "Paulina";
-            string srvrpassword = "123456";
+            string srvrpassword = "Tomek123!";
             string sqlconn = $"Data Source={srvrname};Initial Catalog={srvrbdname};User ID={srvarusername};Password={srvrpassword}";
             sqlConnection = new SqlConnection(sqlconn);
         }
 
+       
 
         public async Task<bool> AddItemAsync(Item item)
         {

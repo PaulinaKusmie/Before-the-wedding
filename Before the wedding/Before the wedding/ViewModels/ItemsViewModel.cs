@@ -12,8 +12,6 @@ namespace Before_the_wedding.ViewModels
 {
     public class ItemsViewModel : BaseViewModel
     {
-
-
         #region Fields
         private Item _selectedItem;
         private string textSearch;
@@ -192,7 +190,7 @@ namespace Before_the_wedding.ViewModels
             {
 
                 System.Collections.Generic.List<Item> items = await DataStore.LoadingItemAsync();
-                foreach (var item in items)
+                foreach (Item item in items)
                 {
                     switch (item.TabNumber)
                     {
