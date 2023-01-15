@@ -55,27 +55,36 @@ namespace Before_the_wedding.ViewModels
         }
         #endregion
 
+        AppShell ap = new AppShell();
+
         public LoginViewModel()
         {
             LoginCommand = new Command(OnLogin);
+            
+            ap.isEnabled(false);
         }
-
+        
         private async void OnLogin()
         {
-            List<Person> sgs = new List<Person>();
+
             if (PersonList == null)
-               sgs = await DataPersonStore.Login();
+                PersonList = await DataPersonStore.Login();
 
             foreach (Person item in PersonList)
             {
                 if (LoginText == item.UserLogin && PasswordText == item.Password)
                 {
+                    ap.isEnabled(true);
                     await Navigation.PushModalAsync(new AboutPage());
+                    break;
                 }
+
+                await App.Current.MainPage.DisplayAlert("Uwaga!", "Błedny login lub hasło sprój ponownie", "OK");
+
 
             }
 
-            await App.Current.MainPage.DisplayAlert("Uwaga!", "Błedny login lub hasło sprój ponownie", "OK");
+           
           
 
         }

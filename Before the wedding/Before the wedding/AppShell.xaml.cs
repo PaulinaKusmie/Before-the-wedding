@@ -15,5 +15,12 @@ namespace Before_the_wedding
             Routing.RegisterRoute(nameof(NewItemPage), typeof(NewItemPage));
         }
 
+
+        public void isEnabled (bool bit)
+        {
+            ItemsPageTab.IsVisible = bit;
+            ExercisesPageTab.IsVisible = bit;
+        }
+
     }
 }

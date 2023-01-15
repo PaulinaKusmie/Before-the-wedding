@@ -13,7 +13,7 @@ namespace Before_the_wedding.Services
 
         private Guid id;
         private DateTime created;
-        private DateTime deleted;
+        private DateTime? deleted;
         private string name;
         private string surname;
         private string password;
@@ -31,7 +31,7 @@ namespace Before_the_wedding.Services
             }
         }
         public DateTime Created { get; set; }
-        public DateTime Deleted { get; set; }
+        public DateTime? Deleted { get; set; }
         public string Name
         {
             get => name;
@@ -54,7 +54,7 @@ namespace Before_the_wedding.Services
         private void Connection()
         {
             string srvrbdname = "DictionaryDatabase";
-            string srvrname = "172.20.10.3";
+            string srvrname = "172.20.10.5";
             string srvarusername = "Paulina";
             string srvrpassword = "Tomek123!";
             string sqlconn = $"Data Source={srvrname};Initial Catalog={srvrbdname};User ID={srvarusername};Password={srvrpassword}";
@@ -81,8 +81,10 @@ namespace Before_the_wedding.Services
 
                         Id = Guid.Parse(radera["PersonId"].ToString());
                         Created = (DateTime)radera["Created"];
-                        if((DateTime)radera["Deleted"] != null)
-                        Deleted = (DateTime)radera["Deleted"];
+                        //Deleted = (DateTime)radera["Deleted"] ? null : ;
+                        if (!radera.IsDBNull(radera.GetOrdinal("Deleted"))) Deleted = (DateTime)radera["Deleted"];
+                        else Deleted = null;
+
                         Name = (string)radera["Name"];
                         Surname = (string)radera["Surname"];
                         UserLogin = (string)radera["Login"];

@@ -187,7 +187,7 @@ namespace Before_the_wedding.Models
         private void Connection()
         {
             string srvrbdname = "DictionaryDatabase";
-            string srvrname = "172.20.10.3";
+            string srvrname = "172.20.10.5";
             string srvarusername = "Paulina";
             string srvrpassword = "Tomek123!";
             string sqlconn = $"Data Source={srvrname};Initial Catalog={srvrbdname};User ID={srvarusername};Password={srvrpassword}";

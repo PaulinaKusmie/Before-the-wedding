@@ -17,7 +17,12 @@ namespace Before_the_wedding.ViewModels
         }
 
         public IDataStore<Item> DataStore => DependencyService.Get<IDataStore<Item>>();
-        public IDataPersonStore<Person> DataPersonStore => DependencyService.Get<IDataPersonStore<Person>>();
+        public IDataPersonStore<Person> DataPersonStore;
+        public BaseViewModel()
+        {
+            DataPersonStore =  DependencyService.Get<IDataPersonStore<Person>>();
+
+        }
 
         bool isBusy = false;
         public bool IsBusy

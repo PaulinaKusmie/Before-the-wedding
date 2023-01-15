@@ -9,7 +9,6 @@
         <vm:AboutViewModel />
     </ContentPage.BindingContext>
 
-
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -25,7 +24,7 @@
         </StackLayout>
         <ScrollView Grid.Row="1">
             <StackLayout Orientation="Vertical" Padding="30,24,30,24" Spacing="10">
-                <Label Text="Zacznij przygotowania do ślubu" FontSize="Title" FontFamily="Serif"/>
+                <Label Text="Zacznij przygotowania do ślubu" FontSize="Title" />
                 <Label Text="Od strony psychicznej, zanim zaczniesz je ogranizować!" FontSize="16" Padding="0,0,0,0"/>
             </StackLayout>
         </ScrollView>
