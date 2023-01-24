@@ -11,16 +11,19 @@ namespace Before_the_wedding
         public AppShell()
         {
             InitializeComponent();
+            var i = nameof(ItemDetailPage);
             Routing.RegisterRoute(nameof(ItemDetailPage), typeof(ItemDetailPage));
             Routing.RegisterRoute(nameof(NewItemPage), typeof(NewItemPage));
+            Routing.RegisterRoute(nameof(ItemsPage), typeof(ItemsPage));
+
         }
 
 
-        public void isEnabled (bool bit)
-        {
-            ItemsPageTab.IsVisible = bit;
-            ExercisesPageTab.IsVisible = bit;
-        }
+
+        //public void isEnabled(int bit)
+        //{
+        //    jpld.CurrentItem.TabIndex = 1;
+        //}
 
     }
 }

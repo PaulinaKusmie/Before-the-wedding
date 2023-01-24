@@ -55,15 +55,11 @@ namespace Before_the_wedding.ViewModels
         }
         #endregion
 
-        AppShell ap = new AppShell();
-
         public LoginViewModel()
         {
             LoginCommand = new Command(OnLogin);
-            
-            ap.isEnabled(false);
         }
-        
+
         private async void OnLogin()
         {
 
@@ -74,19 +70,27 @@ namespace Before_the_wedding.ViewModels
             {
                 if (LoginText == item.UserLogin && PasswordText == item.Password)
                 {
-                    ap.isEnabled(true);
-                    await Navigation.PushModalAsync(new AboutPage());
-                    break;
+
+                    //await Shell.Current.GoToAsync("ItemsPage");
+                    await Shell.Current.GoToAsync("..");
+                    return;
                 }
 
                 await App.Current.MainPage.DisplayAlert("Uwaga!", "Błedny login lub hasło sprój ponownie", "OK");
 
 
             }
-
-           
-          
-
         }
+
+        //protected override void OnDisappearing()
+        //{
+        //    //back button logic here
+        //}
+
+
+
+
+
+    
     }
 }

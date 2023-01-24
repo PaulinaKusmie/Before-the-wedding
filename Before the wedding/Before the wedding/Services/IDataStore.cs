@@ -7,6 +7,7 @@ namespace Before_the_wedding.Services
 {
     public interface IDataStore<T>
     {
+
         Task<bool> AddItemAsync(T item);
         Task<bool> EditItemAsync(T item);
         Task<bool> DeleteItemAsync(Guid id);

@@ -19,14 +19,38 @@ namespace Before_the_wedding.Models
         private string sheanswear;
         SqlConnection sqlConnection;
 
+        public Guid copuleId;
+        public Guid personId;
+
 
         public Item()
         {
             //Connection();
         }
-       
+
 
         #region Properties
+
+        public Guid CopuleId
+        {
+            get => copuleId;
+            set
+            {
+                copuleId = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public Guid PersonId
+        {
+            get => personId;
+            set
+            {
+                personId = value;
+                OnPropertyChanged();
+            }
+        }
+
         public Guid Id
         {
             get => id;
@@ -140,8 +164,6 @@ namespace Before_the_wedding.Models
             }
 
         }
-
-
         public async Task<List<TabItem>> LoadingTabItemAsync()
         {
                int Number;
@@ -187,7 +209,7 @@ namespace Before_the_wedding.Models
         private void Connection()
         {
             string srvrbdname = "DictionaryDatabase";
-            string srvrname = "172.20.10.5";
+            string srvrname = " 192.168.1.14";
             string srvarusername = "Paulina";
             string srvrpassword = "Tomek123!";
             string sqlconn = $"Data Source={srvrname};Initial Catalog={srvrbdname};User ID={srvarusername};Password={srvrpassword}";
@@ -232,23 +254,28 @@ namespace Before_the_wedding.Models
 
         public async Task<bool> EditItemAsync(Item item)
         {
-            try
-            {
-                sqlConnection.Open();
-                using (SqlCommand command2 = new SqlCommand("UPDATE Item SET Answear = @Answer, AnswearHer = @AnswearHer, Question = @Questions WHERE Id = @PW", sqlConnection))
-                {
-                    command2.Parameters.AddWithValue("@PW", item.Id);
-                    command2.Parameters.AddWithValue("@Answer", item.HeAnswear);
-                    command2.Parameters.AddWithValue("@AnswearHer", item.SheAnswear);
-                    command2.Parameters.AddWithValue("@Questions", item.Question);
-                    command2.ExecuteNonQuery();
-                }
-                sqlConnection.Close();
-            }
-            catch (Exception ex)
-            { 
-                return await Task.FromResult(false);
-            }
+            ItemAnswer IA = new ItemAnswer(item);
+
+
+
+
+            //try
+            //{
+            //    sqlConnection.Open();
+            //    using (SqlCommand command2 = new SqlCommand("UPDATE Item SET Answear = @Answer, AnswearHer = @AnswearHer, Question = @Questions WHERE Id = @PW", sqlConnection))
+            //    {
+            //        command2.Parameters.AddWithValue("@PW", item.Id);
+            //        command2.Parameters.AddWithValue("@Answer", item.HeAnswear);
+            //        command2.Parameters.AddWithValue("@AnswearHer", item.SheAnswear);
+            //        command2.Parameters.AddWithValue("@Questions", item.Question);
+            //        command2.ExecuteNonQuery();
+            //    }
+            //    sqlConnection.Close();
+            //}
+            //catch (Exception ex)
+            //{ 
+            //    return await Task.FromResult(false);
+            //}
 
             return await Task.FromResult(true);
         }

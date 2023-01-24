@@ -26,7 +26,7 @@
             <Entry Text="{Binding LoginText, Mode=TwoWay}" Grid.Row="2"  Grid.Column="0" HeightRequest="250" FontSize="Medium"    WidthRequest="340" HorizontalOptions="End"/>
             <Label Text="Hasło: " Grid.Row="3"  Grid.Column="0" FontSize="Large"  Margin="10" VerticalOptions="Center"   HorizontalOptions="Start"/>
             <Entry Text="{Binding PasswordText, Mode=TwoWay}" Grid.Row="3"  Grid.Column="0" HeightRequest="250" FontSize="Medium"   WidthRequest="340" HorizontalOptions="End" IsPassword="True"/>
-            <Button Text="Zaloguj się" BorderColor="Beige"  Margin="4" HeightRequest="40" WidthRequest="100" Grid.Row="4" Grid.Column="0"  Command="{Binding LoginCommand}" HorizontalOptions="End" VerticalOptions="Start" ></Button>
+            <Button Text="Zaloguj się" BorderColor="Beige" Margin="4" HeightRequest="40" WidthRequest="100" Grid.Row="4" Grid.Column="0"  Command="{Binding LoginCommand}" HorizontalOptions="End" VerticalOptions="Start" ></Button>
             <Label Text="Nie masz konta? "  Grid.Row="5"  Grid.Column="0" FontSize="15"  VerticalOptions="Start" />
             <Label  Grid.Row="5"  Grid.Column="0" FontSize="15"  VerticalOptions="End">
                 <Label.FormattedText>

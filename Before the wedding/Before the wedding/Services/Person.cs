@@ -54,7 +54,7 @@ namespace Before_the_wedding.Services
         private void Connection()
         {
             string srvrbdname = "DictionaryDatabase";
-            string srvrname = "172.20.10.5";
+            string srvrname = " 192.168.1.14";
             string srvarusername = "Paulina";
             string srvrpassword = "Tomek123!";
             string sqlconn = $"Data Source={srvrname};Initial Catalog={srvrbdname};User ID={srvarusername};Password={srvrpassword}";
