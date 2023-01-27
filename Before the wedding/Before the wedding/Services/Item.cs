@@ -9,6 +9,8 @@ namespace Before_the_wedding.Models
 {
     public class Item : INotifyPropertyChanged, IDataStore<Item>
     {
+        #region Fields
+
         readonly List<Item> items = new List<Item>();
 
         private Guid id;
@@ -22,6 +24,7 @@ namespace Before_the_wedding.Models
         public Guid copuleId;
         public Guid personId;
 
+        #endregion
 
         public Item()
         {

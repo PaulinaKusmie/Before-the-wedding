@@ -16,6 +16,7 @@ namespace Before_the_wedding
 
             DependencyService.Register<Item>();
             DependencyService.Register<Person>();
+            DependencyService.Register<ItemAnswer>();
             MainPage = new AppShell();
         }
 

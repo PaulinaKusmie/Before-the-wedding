@@ -1,5 +1,6 @@
 ﻿using Before_the_wedding.Models;
 using Before_the_wedding.Services;
+using Before_the_wedding.Services.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -18,6 +19,7 @@ namespace Before_the_wedding.ViewModels
 
         public IDataStore<Item> DataStore => DependencyService.Get<IDataStore<Item>>();
         public IDataPersonStore<Person> DataPersonStore;
+        public IDataStoreItemAnswer<ItemAnswer> DataStoreItemAnswer => DependencyService.Get<IDataStoreItemAnswer<ItemAnswer>>();
         public BaseViewModel()
         {
             DataPersonStore =  DependencyService.Get<IDataPersonStore<Person>>();

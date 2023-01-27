@@ -9,6 +9,7 @@ namespace Before_the_wedding.Services
 {
     public class Person : INotifyPropertyChanged, IDataPersonStore<Person>
     {
+        #region Fields
         readonly List<Person> personItems = new List<Person>();
 
         private Guid id;
@@ -20,6 +21,10 @@ namespace Before_the_wedding.Services
         private string login;
         private bool sex;
         SqlConnection sqlConnection;
+
+        #endregion
+
+        #region Properties
 
         public Guid Id
         {
@@ -45,6 +50,8 @@ namespace Before_the_wedding.Services
         public string Password { get; set; }
         public string UserLogin { get; set; }
         public bool Sex { get; set; }
+
+#endregion
 
         public Person()
         {

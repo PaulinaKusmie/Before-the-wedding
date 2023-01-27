@@ -161,11 +161,23 @@ namespace Before_the_wedding.ViewModels
 
         public async void LoadItemId(Item item)
         {
+
+            //send request to DB to get Question from Item and 
+            // and get new CTOR to GET COPULE ID AND PERSONID
+
+
             try
             {
+                System.Collections.Generic.List<ItemAnswer> items = await DataStoreItemAnswer.LoadingItemAnswerAsync(item);
+
+                foreach (ItemAnswer itm in items)
+                {
+                    if (itm.IsHe) HeAnswear = itm.Answer;
+                    if (itm.IsShe) SheAnswear = itm.Answer;
+
+                }
+
                 Id = item.Id;
-                HeAnswear = item.HeAnswear != null ? item.HeAnswear : string.Empty;
-                SheAnswear = item.SheAnswear != null ? item.SheAnswear : string.Empty;
                 Question = item.Question != null ? item.Question : string.Empty;
             }
             catch (Exception)
