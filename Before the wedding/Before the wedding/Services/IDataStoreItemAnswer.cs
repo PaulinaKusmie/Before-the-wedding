@@ -9,7 +9,6 @@ namespace Before_the_wedding.Services.Models
     public interface IDataStoreItemAnswer<T>
     {
         Task<ItemAnswer> NewEditItemAnswer(T item);
-
         Task<List<ItemAnswer>> LoadingItemAnswerAsync(T item);
         Task<List<ItemAnswer>> LoadingItemAnswerAsync(Item item);
     }

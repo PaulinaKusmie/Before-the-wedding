@@ -239,8 +239,9 @@ namespace Before_the_wedding.Services
                 using (SqlCommand command = new SqlCommand("SELECT ISNULL(HisId, '') AS HisId,   ISNULL(HerId, '') AS HerId  FROM Copule (nolock) where itemId = @IID ", sqlConnection))
                 {
                     
-                    SqlDataReader radera = command.ExecuteReader();
                     command.Parameters.AddWithValue("@IID", item.CopuleId);
+
+                    SqlDataReader radera = command.ExecuteReader();
 
                     command.ExecuteNonQuery();
                     while (radera.Read())

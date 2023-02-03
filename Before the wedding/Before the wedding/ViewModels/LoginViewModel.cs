@@ -20,6 +20,7 @@ namespace Before_the_wedding.ViewModels
 
         INavigation Navigation => Application.Current.MainPage.Navigation;
         #endregion
+
         public ICommand RegisterCommand => new Command(() => { Navigation.PushModalAsync(new RegisterPage()); });
         public ICommand LoginCommand { get; set; }
 
@@ -70,6 +71,7 @@ namespace Before_the_wedding.ViewModels
             {
                 if (LoginText == item.UserLogin && PasswordText == item.Password)
                 {
+                    
 
                     //await Shell.Current.GoToAsync("ItemsPage");
                     await Shell.Current.GoToAsync("..");

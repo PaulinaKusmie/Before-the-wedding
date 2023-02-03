@@ -20,6 +20,7 @@ namespace Before_the_wedding.Services
         private string password;
         private string login;
         private bool sex;
+        private Guid copuleGuidId;
         SqlConnection sqlConnection;
 
         #endregion
@@ -51,7 +52,17 @@ namespace Before_the_wedding.Services
         public string UserLogin { get; set; }
         public bool Sex { get; set; }
 
-#endregion
+        public Guid CopuleGuidId
+        {
+            get => copuleGuidId;
+            set
+            {
+                copuleGuidId = value;
+                OnPropertyChanged();
+            }
+        }
+
+        #endregion
 
         public Person()
         {
@@ -79,7 +90,7 @@ namespace Before_the_wedding.Services
                     sqlConnection.Close();
 
                 sqlConnection.Open();
-                using (SqlCommand command = new SqlCommand("SELECT PersonId, Created AS Created , Deleted AS Deleted , ISNULL(Name, '') AS Name , ISNULL(Surname, '') as Surname , ISNULL(Login, '') AS Login, ISNULL(Password, '') AS Password, Sex  FROM Person (nolock)", sqlConnection))
+                using (SqlCommand command = new SqlCommand("SELECT PersonId, Created AS Created , Deleted AS Deleted , ISNULL(Name, '') AS Name , ISNULL(Surname, '') as Surname , ISNULL(Login, '') AS Login, ISNULL(Password, '') AS Password, Sex, CopuleId  FROM Person (nolock)", sqlConnection))
                 {
 
                     SqlDataReader radera = command.ExecuteReader();
@@ -97,6 +108,7 @@ namespace Before_the_wedding.Services
                         UserLogin = (string)radera["Login"];
                         Password = (string)radera["Password"];
                         Sex = (bool)radera["Sex"];
+                        CopuleGuidId = Guid.Parse(radera["CopuleId"].ToString());
 
                         Person personObject = new Person();
                         personObject.Id = Id;
@@ -107,6 +119,7 @@ namespace Before_the_wedding.Services
                         personObject.UserLogin = UserLogin;
                         personObject.Password = Password;
                         personObject.Sex = Sex;
+                        personObject.CopuleGuidId = CopuleGuidId;
 
                         ItemList.Add(personObject);
                     }
