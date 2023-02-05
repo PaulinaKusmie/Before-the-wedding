@@ -90,7 +90,7 @@ namespace Before_the_wedding.Services
                     sqlConnection.Close();
 
                 sqlConnection.Open();
-                using (SqlCommand command = new SqlCommand("SELECT PersonId, Created AS Created , Deleted AS Deleted , ISNULL(Name, '') AS Name , ISNULL(Surname, '') as Surname , ISNULL(Login, '') AS Login, ISNULL(Password, '') AS Password, Sex, CopuleId  FROM Person (nolock)", sqlConnection))
+                using (SqlCommand command = new SqlCommand("SELECT PersonId, Created AS Created , Deleted AS Deleted , ISNULL(Name, '') AS Name , ISNULL(Surname, '') as Surname , ISNULL(Login, '') AS Login, ISNULL(Password, '') AS Password, Sex, CopuleGuidId  FROM Person (nolock)", sqlConnection))
                 {
 
                     SqlDataReader radera = command.ExecuteReader();
@@ -108,7 +108,7 @@ namespace Before_the_wedding.Services
                         UserLogin = (string)radera["Login"];
                         Password = (string)radera["Password"];
                         Sex = (bool)radera["Sex"];
-                        CopuleGuidId = Guid.Parse(radera["CopuleId"].ToString());
+                        CopuleGuidId = Guid.Parse(radera["CopuleGuidId"].ToString());
 
                         Person personObject = new Person();
                         personObject.Id = Id;

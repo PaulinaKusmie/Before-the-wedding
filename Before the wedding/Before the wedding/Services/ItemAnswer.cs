@@ -236,14 +236,14 @@ namespace Before_the_wedding.Services
                     sqlConnection.Close();
 
                 sqlConnection.Open();
-                using (SqlCommand command = new SqlCommand("SELECT ISNULL(HisId, '') AS HisId,   ISNULL(HerId, '') AS HerId  FROM Copule (nolock) where itemId = @IID ", sqlConnection))
+                using (SqlCommand command = new SqlCommand("SELECT ISNULL(HisId, '') AS HisId,   ISNULL(HerId, '') AS HerId  FROM Copule (nolock) where CopuleGuidId = @IID ", sqlConnection))
                 {
                     
-                    command.Parameters.AddWithValue("@IID", item.CopuleId);
+                    command.Parameters.AddWithValue("@IID", Login.copuleId);
 
                     SqlDataReader radera = command.ExecuteReader();
 
-                    command.ExecuteNonQuery();
+                    
                     while (radera.Read())
                     {
                         HisId = Guid.Parse(radera["HisId"].ToString());
@@ -252,16 +252,16 @@ namespace Before_the_wedding.Services
 
                 }
                 sqlConnection.Close();
-
-
+                
 
                 sqlConnection.Open();
                 using (SqlCommand command = new SqlCommand("SELECT ItemAnswerId, ISNULL(Answer, '') AS Answer FROM ItemAnswer (nolock) where CopuleId = @CID and PersonId = @PID ", sqlConnection))
                 {
+                    command.Parameters.AddWithValue("@CID", Login.copuleId);
+                    command.Parameters.AddWithValue("@PID", HisId);
 
                     SqlDataReader radera = command.ExecuteReader();
-                    command.Parameters.AddWithValue("@CID", item.Id);
-                    command.Parameters.AddWithValue("@PID", HisId);
+                    
                     while (radera.Read())
                     {
 
@@ -273,7 +273,7 @@ namespace Before_the_wedding.Services
                         IA.Answer = Answer;
                         IA.CopuleId = item.Id;
                         IA.PersonId = item.PersonId;
-
+                        IA.IsHe = true;
 
                         ItemAnswerList.Add(IA);
                     }
@@ -286,10 +286,11 @@ namespace Before_the_wedding.Services
                 sqlConnection.Open();
                 using (SqlCommand command = new SqlCommand("SELECT ItemAnswerId, ISNULL(Answer, '') AS Answer FROM ItemAnswer (nolock) where CopuleId = @CID and PersonId = @PID ", sqlConnection))
                 {
+                    command.Parameters.AddWithValue("@CID", Login.copuleId);
+                    command.Parameters.AddWithValue("@PID", HerId);
 
                     SqlDataReader radera = command.ExecuteReader();
-                    command.Parameters.AddWithValue("@CID", item.Id);
-                    command.Parameters.AddWithValue("@PID", HerId);
+
                     while (radera.Read())
                     {
 
@@ -301,6 +302,7 @@ namespace Before_the_wedding.Services
                         IA.Answer = Answer;
                         IA.CopuleId = item.Id;
                         IA.PersonId = item.PersonId;
+                        IA.IsShe = true;
 
                         ItemAnswerList.Add(IA);
                     }

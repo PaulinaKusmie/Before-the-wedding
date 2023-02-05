@@ -71,8 +71,7 @@ namespace Before_the_wedding.ViewModels
             {
                 if (LoginText == item.UserLogin && PasswordText == item.Password)
                 {
-                    
-
+                    Login.copuleId = item.CopuleGuidId;
                     //await Shell.Current.GoToAsync("ItemsPage");
                     await Shell.Current.GoToAsync("..");
                     return;
@@ -89,10 +88,14 @@ namespace Before_the_wedding.ViewModels
         //    //back button logic here
         //}
 
-
-
-
-
-    
     }
+
+
+
+
+}
+
+public static class Login
+{
+    public static Guid copuleId;
 }
