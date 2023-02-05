@@ -9,11 +9,11 @@
         <Label Text="{Binding Question, Mode=TwoWay}" FontSize="Medium"  VerticalOptions="CenterAndExpand" TextDecorations="Underline" FontAttributes="Bold" />
         <Label Text="Jej odpowiedź:" FontSize="Medium" />
         <Editor Text="{Binding SheAnswear, Mode=TwoWay}" TextColor="DeepPink" HeightRequest="100" FontSize="Medium" />
-        <Button Text="{Binding ButtonTextShe, Mode=OneTime}" Command="{Binding EditItemCommand}" HorizontalOptions="End"></Button>
+        <Button Text="{Binding ButtonTextShe, Mode=OneTime}" Command="{Binding EditItemAnswerSheCommand}" HorizontalOptions="End"></Button>
         <Label Text="Jego Odpowiedź:" FontSize="Medium" />
         <Editor Text="{Binding HeAnswear, Mode=TwoWay}"  TextColor="Blue"  HeightRequest="100" FontSize="Medium"/>
-        <Button Text="{Binding ButtonTextHe, Mode=OneTime}" Command="{Binding EditItemCommand}" HorizontalOptions="End"></Button>
-        
+        <Button Text="{Binding ButtonTextHe, Mode=OneTime}" Command="{Binding EditItemAnswerHeCommand}" HorizontalOptions="End"></Button>
+
         <StackLayout Orientation="Horizontal">
             <Button Text="Usuń" Command="{Binding DeleteItemCommand}" HorizontalOptions="Start" BackgroundColor="DarkRed"></Button>
         </StackLayout>

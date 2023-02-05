@@ -44,7 +44,6 @@ namespace Before_the_wedding.ViewModels
         }
 
         
-
         private async void OnWhenIFeel(object obj)
         {
             await Navigation.PushModalAsync(new WhenIFeelPage());

@@ -19,6 +19,7 @@ namespace Before_the_wedding.Models
         private string question;
         private string heanswear;
         private string sheanswear;
+        private Guid itemId;
         SqlConnection sqlConnection;
 
         public Guid copuleId;
@@ -118,6 +119,17 @@ namespace Before_the_wedding.Models
             }
         }
 
+
+        public Guid ItemId
+        {
+            get => itemId;
+            set
+            {
+                itemId = value;
+                OnPropertyChanged();
+            }
+        }
+
         #endregion
 
         public async Task<List<Item>> LoadingItemAsync()
@@ -131,7 +143,7 @@ namespace Before_the_wedding.Models
                     sqlConnection.Close();
 
                 sqlConnection.Open();
-                using (SqlCommand command = new SqlCommand("SELECT Id, ISNULL(Question, '') AS Question , ISNULL(AnswearHer, '') AS AnswearHer , ISNULL(Answear, '') AS Answear , ISNULL(Description, '') Description , TabNumber  FROM Item (nolock)", sqlConnection))
+                using (SqlCommand command = new SqlCommand("SELECT Id, ISNULL(Question, '') AS Question , ISNULL(AnswearHer, '') AS AnswearHer , ISNULL(Answear, '') AS Answear , ISNULL(Description, '') Description , TabNumber   FROM Item (nolock)", sqlConnection))
                 {
 
                     SqlDataReader radera = command.ExecuteReader();
@@ -144,6 +156,7 @@ namespace Before_the_wedding.Models
                         Question = (string)radera["Question"]; 
                         Description = (string)radera["Description"]; 
                         TabNumber = (int)radera["TabNumber"] as int? ?? default(int);
+                        ItemId = Guid.Parse(radera["Id"].ToString());
 
                         Item dic = new Item();
                         dic.Id = Id;
@@ -260,25 +273,23 @@ namespace Before_the_wedding.Models
             ItemAnswer IA = new ItemAnswer(item);
 
 
-
-
-            //try
-            //{
-            //    sqlConnection.Open();
-            //    using (SqlCommand command2 = new SqlCommand("UPDATE Item SET Answear = @Answer, AnswearHer = @AnswearHer, Question = @Questions WHERE Id = @PW", sqlConnection))
-            //    {
-            //        command2.Parameters.AddWithValue("@PW", item.Id);
-            //        command2.Parameters.AddWithValue("@Answer", item.HeAnswear);
-            //        command2.Parameters.AddWithValue("@AnswearHer", item.SheAnswear);
-            //        command2.Parameters.AddWithValue("@Questions", item.Question);
-            //        command2.ExecuteNonQuery();
-            //    }
-            //    sqlConnection.Close();
-            //}
-            //catch (Exception ex)
-            //{ 
-            //    return await Task.FromResult(false);
-            //}
+            try
+            {
+                sqlConnection.Open();
+                using (SqlCommand command2 = new SqlCommand("UPDATE Item SET Answear = @Answer, AnswearHer = @AnswearHer, Question = @Questions WHERE Id = @PW", sqlConnection))
+                {
+                    command2.Parameters.AddWithValue("@PW", item.Id);
+                    command2.Parameters.AddWithValue("@Answer", item.HeAnswear);
+                    command2.Parameters.AddWithValue("@AnswearHer", item.SheAnswear);
+                    command2.Parameters.AddWithValue("@Questions", item.Question);
+                    command2.ExecuteNonQuery();
+                }
+                sqlConnection.Close();
+            }
+            catch (Exception ex)
+            {
+                return await Task.FromResult(false);
+            }
 
             return await Task.FromResult(true);
         }

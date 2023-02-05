@@ -25,7 +25,7 @@ namespace Before_the_wedding.ViewModels
         {
             get => id;
             set
-            { 
+            {
                 id = value;
                 OnPropertyChanged();
             }
@@ -47,11 +47,13 @@ namespace Before_the_wedding.ViewModels
             get => sheanswear;
             set
             {
-                ButtonTextShe = "Zapisz";
-                sheanswear = value;
 
+                sheanswear = value;
                 if (sheanswear.Length > 0)
+                {
                     ButtonTextShe = "Edytuj";
+                }
+
 
                 OnPropertyChanged();
             }
@@ -62,15 +64,15 @@ namespace Before_the_wedding.ViewModels
             get => heanswear;
             set
             {
-                ButtonTextHe = "Zapisz";
+
                 heanswear = value;
-                if (heanswear.Length > 0 )
+                if (heanswear.Length > 0)
                     ButtonTextHe = "Edytuj";
 
                 OnPropertyChanged();
             }
         }
-    
+
         public string ButtonTextHe
         {
             get => buttonTextHe;
@@ -81,7 +83,7 @@ namespace Before_the_wedding.ViewModels
                 OnPropertyChanged();
             }
         }
-   
+
         public string ButtonTextShe
         {
             get => buttonTextShe;
@@ -109,22 +111,33 @@ namespace Before_the_wedding.ViewModels
 
         #endregion
 
-        public Command EditItemCommand { get; }
+        public Command EditItemAnswerSheCommand { get; }
+        public Command EditItemAnswerHeCommand { get; }
         public Command<Item> DeleteItemCommand { get; }
 
 
         public ItemDetailViewModel()
         {
-            EditItemCommand = new Command(OnEditItem);
+            EditItemAnswerSheCommand = new Command(OnEditItemAnswerSheCommand);
+            EditItemAnswerHeCommand = new Command(OnEditItemAnswerHeCommand);
             DeleteItemCommand = new Command<Item>(OnDeleteItem);
             this.Item = item;
+            SetButtonName();
         }
 
         public ItemDetailViewModel(Item item)
         {
-            EditItemCommand = new Command(OnEditItem);
+            EditItemAnswerSheCommand = new Command(OnEditItemAnswerSheCommand);
+            EditItemAnswerHeCommand = new Command(OnEditItemAnswerHeCommand);
             DeleteItemCommand = new Command<Item>(OnDeleteItem);
             this.Item = item;
+            SetButtonName();
+        }
+
+        public void SetButtonName()
+        {
+            ButtonTextShe = "Zapisz";
+            ButtonTextHe = "Zapisz";
         }
 
 
@@ -141,34 +154,79 @@ namespace Before_the_wedding.ViewModels
                 && !String.IsNullOrWhiteSpace(question);
         }
 
-        private async void OnEditItem()
+        private async void OnEditItemAnswerHeCommand()
         {
-            Item newItem = new Item()
-            {
-                Id = Id,
-                HeAnswear = HeAnswear,
-                SheAnswear = SheAnswear,
-                Question = Question
-            };
 
-            await DataStore.EditItemAsync(newItem);
+            foreach (var item in items)
+            {
+                if (item.IsHe == true)
+                {
+                    item.Answer = HeAnswear;
+                    await DataStoreItemAnswer.EditItemAnswerAsync(item);
+
+                }
+
+                if (ButtonTextHe == "Zapisz")
+                {
+                    ItemAnswer IA = new ItemAnswer()
+                    {
+                        CopuleId = Item.CopuleId,
+                        PersonId = item.HisId,
+                        ItemId = Item.Id,
+                        Answer = HeAnswear
+                    };
+
+                    await DataStoreItemAnswer.EditItemAnswerAsync(IA);
+                }
+            }
+
+          
+
+            await Application.Current.MainPage.Navigation.PopAsync();
+        }
+
+
+        private async void OnEditItemAnswerSheCommand()
+        {
+
+            foreach (var item in items)
+            {
+                if (item.IsShe == true)
+                {
+                    item.Answer = SheAnswear;
+                    await DataStoreItemAnswer.EditItemAnswerAsync(item);
+                }
+
+                if ( ButtonTextShe == "Zapisz")
+                {
+                    ItemAnswer IA = new ItemAnswer()
+                    {
+                        CopuleId = Item.CopuleId,
+                        PersonId = item.HerId,
+                        ItemId = Item.Id,
+                        Answer = SheAnswear
+                    };
+
+                    await DataStoreItemAnswer.EditItemAnswerAsync(IA);
+                }
+            }
+
 
             await Application.Current.MainPage.Navigation.PopAsync();
 
         }
-        
 
+        System.Collections.Generic.List<ItemAnswer> items = new System.Collections.Generic.List<ItemAnswer>();
 
         public async void LoadItemId(Item item)
         {
 
-            //send request to DB to get Question from Item and 
-            // and get new CTOR to GET COPULE ID AND PERSONID
-
 
             try
             {
-                System.Collections.Generic.List<ItemAnswer> items = await DataStoreItemAnswer.LoadingItemAnswerAsync(item);
+                 if (items != null) items.Clear();
+
+                items = await DataStoreItemAnswer.LoadingItemAnswerAsync(item);
 
                 foreach (ItemAnswer itm in items)
                 {
@@ -179,6 +237,8 @@ namespace Before_the_wedding.ViewModels
 
                 Id = item.Id;
                 Question = item.Question != null ? item.Question : string.Empty;
+
+                
             }
             catch (Exception)
             {

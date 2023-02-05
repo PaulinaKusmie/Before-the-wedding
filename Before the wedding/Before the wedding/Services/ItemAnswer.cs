@@ -18,6 +18,7 @@ namespace Before_the_wedding.Services
         private Guid personId;
         private Guid hisId;
         private Guid herId;
+        private Guid itemId;
         private string answer;
         private Item item;
         private bool isHe;
@@ -76,6 +77,19 @@ namespace Before_the_wedding.Services
                 OnPropertyChanged();
             }
         }
+
+        public Guid ItemId
+        {
+            get => itemId;
+            set
+            {
+                itemId = value;
+                OnPropertyChanged();
+            }
+        }
+
+
+
 
         public string Answer
         {
@@ -255,10 +269,11 @@ namespace Before_the_wedding.Services
                 
 
                 sqlConnection.Open();
-                using (SqlCommand command = new SqlCommand("SELECT ItemAnswerId, ISNULL(Answer, '') AS Answer FROM ItemAnswer (nolock) where CopuleId = @CID and PersonId = @PID ", sqlConnection))
+                using (SqlCommand command = new SqlCommand("SELECT ItemAnswerId, ISNULL(Answer, '') AS Answer, ISNULL(ItemId , '') AS Item FROM ItemAnswer (nolock) where CopuleId = @CID and PersonId = @PID and ItemId = @IID ", sqlConnection))
                 {
                     command.Parameters.AddWithValue("@CID", Login.copuleId);
                     command.Parameters.AddWithValue("@PID", HisId);
+                    command.Parameters.AddWithValue("@IID", item.Id);
 
                     SqlDataReader radera = command.ExecuteReader();
                     
@@ -275,6 +290,7 @@ namespace Before_the_wedding.Services
                         IA.PersonId = item.PersonId;
                         IA.IsHe = true;
 
+
                         ItemAnswerList.Add(IA);
                     }
 
@@ -284,10 +300,11 @@ namespace Before_the_wedding.Services
 
 
                 sqlConnection.Open();
-                using (SqlCommand command = new SqlCommand("SELECT ItemAnswerId, ISNULL(Answer, '') AS Answer FROM ItemAnswer (nolock) where CopuleId = @CID and PersonId = @PID ", sqlConnection))
+                using (SqlCommand command = new SqlCommand("SELECT ItemAnswerId, ISNULL(Answer, '') AS Answer FROM ItemAnswer (nolock) where CopuleId = @CID and PersonId = @PID and ItemId = @IID", sqlConnection))
                 {
                     command.Parameters.AddWithValue("@CID", Login.copuleId);
                     command.Parameters.AddWithValue("@PID", HerId);
+                    command.Parameters.AddWithValue("@IID", item.Id);
 
                     SqlDataReader radera = command.ExecuteReader();
 
@@ -320,6 +337,82 @@ namespace Before_the_wedding.Services
         }
 
 
+
+        public async Task<bool> EditItemAnswerAsync(ItemAnswer itemAnswer)
+        {
+            try
+            {
+                sqlConnection.Open();
+                using (SqlCommand command2 = new SqlCommand("UPDATE ItemAnswer SET Answer = @Answer WHERE ItemAnswerId = @PW", sqlConnection))
+                {
+                    command2.Parameters.AddWithValue("@PW", itemAnswer.itemAnswerId);
+                    command2.Parameters.AddWithValue("@Answer", itemAnswer.Answer);
+
+                    command2.ExecuteNonQuery();
+                }
+                sqlConnection.Close();
+            }
+            catch (Exception ex)
+            {
+                return await Task.FromResult(false);
+            }
+
+            return await Task.FromResult(true);
+        }
+
+
+
+        public async Task<bool> AddItemAnswerAsync(ItemAnswer itemAnswear)
+        {
+            Connection();
+            try
+            {
+              
+                sqlConnection.Open();
+                using (SqlCommand command2 = new SqlCommand("Insert into ItemAnswer (ItemAnswerId, CopuleId, PersonId, ItemId, Answer) VALUES(@ItemAnswerId, @CopuleId, @PersonId, @ItemId, @Answer )", sqlConnection))
+                {
+                    command2.Parameters.Add(new SqlParameter("ItemAnswerId", Guid.NewGuid()));
+                    command2.Parameters.Add(new SqlParameter("CopuleId", itemAnswear.CopuleId));
+                    command2.Parameters.Add(new SqlParameter("PersonId", itemAnswear.PersonId));
+                    command2.Parameters.Add(new SqlParameter("ItemId", itemAnswear.ItemId));
+                    command2.Parameters.Add(new SqlParameter("Answear", itemAnswear.Answer));
+                    command2.ExecuteNonQuery();
+                }
+                sqlConnection.Close();
+
+
+
+            }
+            catch (Exception ex)
+            {
+                await App.Current.MainPage.DisplayAlert("Uwaga", ex.Message, "Ok");
+                throw;
+            }
+
+            return await Task.FromResult(true);
+
+        }
+
+        public async Task<bool> DeleteItemAnswearAsync(Guid Id)
+        {
+            try
+            {
+                sqlConnection.Open();
+                using (SqlCommand command2 = new SqlCommand("DELETE FROM ItemAnswer WHERE Id = @PW", sqlConnection))
+                {
+                    command2.Parameters.Add(new SqlParameter("@PW", Id));
+                    command2.ExecuteNonQuery();
+                }
+                sqlConnection.Close();
+            }
+            catch (Exception ex)
+            {
+                return await Task.FromResult(false);
+            }
+
+            return await Task.FromResult(true);
+
+        }
 
         #region PropertyChange
         public event PropertyChangedEventHandler PropertyChanged;
