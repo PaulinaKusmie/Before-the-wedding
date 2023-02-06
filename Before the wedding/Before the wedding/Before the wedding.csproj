@@ -10,6 +10,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Services\DataBaseConnected.cs" />
+    <Compile Remove="Services\MockDataStore.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="AmaticSC-Bold.ttf" />
     <None Remove="AmaticSC-Regular.ttf" />
   </ItemGroup>

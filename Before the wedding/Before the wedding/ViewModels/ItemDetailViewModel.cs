@@ -166,7 +166,7 @@ namespace Before_the_wedding.ViewModels
 
                 }
 
-                if (ButtonTextHe == "Zapisz")
+                if (items.Count == 1 && item.IsHe == false)
                 {
                     ItemAnswer IA = new ItemAnswer()
                     {
@@ -176,11 +176,15 @@ namespace Before_the_wedding.ViewModels
                         Answer = HeAnswear
                     };
 
-                    await DataStoreItemAnswer.EditItemAnswerAsync(IA);
+                    await DataStoreItemAnswer.AddItemAnswerAsync(IA);
                 }
+
+
             }
 
-          
+           
+
+
 
             await Application.Current.MainPage.Navigation.PopAsync();
         }
@@ -197,7 +201,7 @@ namespace Before_the_wedding.ViewModels
                     await DataStoreItemAnswer.EditItemAnswerAsync(item);
                 }
 
-                if ( ButtonTextShe == "Zapisz")
+                if (items.Count == 1 && item.IsShe == false)
                 {
                     ItemAnswer IA = new ItemAnswer()
                     {
@@ -207,7 +211,7 @@ namespace Before_the_wedding.ViewModels
                         Answer = SheAnswear
                     };
 
-                    await DataStoreItemAnswer.EditItemAnswerAsync(IA);
+                    await DataStoreItemAnswer.AddItemAnswerAsync(IA);
                 }
             }
 

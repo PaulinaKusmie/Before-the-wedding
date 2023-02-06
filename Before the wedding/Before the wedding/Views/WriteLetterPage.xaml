@@ -14,7 +14,7 @@
                 <RowDefinition Height="4*" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <Label Text="Kiedy czujesz się przeze mnie kochany?" FontFamily="AmaticSC-Bold" Grid.Row="1"  Grid.Column="0" FontSize="Large"  Margin="10" VerticalOptions="Center" FontAttributes="Bold" />
+            <Label Text="Napisz list do swojej drugiej połówki" FontFamily="AmaticSC-Bold" Grid.Row="1"  Grid.Column="0" FontSize="Large"  Margin="10" VerticalOptions="Center" FontAttributes="Bold" />
             <Editor Text="{Binding ListText, Mode=TwoWay}" Grid.Row="3"  Grid.Column="0" HeightRequest="250" FontSize="Medium" />
             <Button Text="{Binding SaveListText, Mode=OneTime}" BorderColor="Beige"  Margin="10" HeightRequest="40" WidthRequest="100" Grid.Row="4" Grid.Column="0"  Command="{Binding SaveLetterCommand}" HorizontalOptions="End" VerticalOptions="Start" ></Button>
         </Grid>

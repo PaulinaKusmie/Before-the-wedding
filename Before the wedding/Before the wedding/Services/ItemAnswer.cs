@@ -133,7 +133,6 @@ namespace Before_the_wedding.Services
 
         #endregion
 
-
         public ItemAnswer()
         {
          
