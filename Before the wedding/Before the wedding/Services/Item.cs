@@ -180,6 +180,8 @@ namespace Before_the_wedding.Models
             }
 
         }
+
+
         public async Task<List<TabItem>> LoadingTabItemAsync()
         {
                int Number;
@@ -326,7 +328,7 @@ namespace Before_the_wedding.Models
         }
 
 
-        #region PropertyChange
+        #region PropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;
 
         public void OnPropertyChanged(string propertyName = null)

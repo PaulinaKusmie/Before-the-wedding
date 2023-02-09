@@ -4,7 +4,17 @@ using System.Text;
 
 namespace Before_the_wedding.Services
 {
-    public class DBConnected
+    public interface IDataExerices
     {
+
+
+
+
+
+
+
+
+
+
     }
 }

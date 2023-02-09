@@ -20,6 +20,7 @@ namespace Before_the_wedding.ViewModels
         public IDataStore<Item> DataStore => DependencyService.Get<IDataStore<Item>>();
         public IDataPersonStore<Person> DataPersonStore;
         public IDataStoreItemAnswer<ItemAnswer> DataStoreItemAnswer => DependencyService.Get<IDataStoreItemAnswer<ItemAnswer>>();
+        public IDataExerices DataStoreExerices => DependencyService.Get<IDataExerices>();
         public BaseViewModel()
         {
             DataPersonStore =  DependencyService.Get<IDataPersonStore<Person>>();
