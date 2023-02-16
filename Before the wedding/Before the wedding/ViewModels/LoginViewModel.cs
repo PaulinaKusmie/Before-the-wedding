@@ -88,5 +88,6 @@ public static class Login
 {
     public static Guid copuleId;
     public static Guid personId;
-    
+    public static ItemAnswer itemAnswer;
+
 }

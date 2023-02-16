@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data.SqlClient;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Before_the_wedding.Services
 {
-    class Exercises : IDataExerices
+    public class Exercises : INotifyPropertyChanged, IDataExerices<Letter>
     {
 
         #region Fields
@@ -37,7 +39,7 @@ namespace Before_the_wedding.Services
 
 
 
-        public Letter FetchLetterItem()
+        async Task<Letter> FetchLetterItem()
         {
             try
             {
@@ -47,9 +49,11 @@ namespace Before_the_wedding.Services
                     sqlConnection.Close();
 
                 sqlConnection.Open();
-                using (SqlCommand command = new SqlCommand("SELECT  LetterId , PersonId , CopuleId , ISNULL(ContentLetter, '') AS ContentLetter  FROM Letter (nolock)", sqlConnection))
+                using (SqlCommand command = new SqlCommand("SELECT  LetterId , PersonId , CopuleId , ISNULL(ContentLetter, '') AS ContentLetter  FROM Letter (nolock) where PersonId = @PID and CopuleId = @CID  ", sqlConnection))
                 {
                     Letter dic = new Letter();
+                    command.Parameters.AddWithValue("@CID", Login.copuleId);
+                    command.Parameters.AddWithValue("@PID", Login.personId);
 
                     SqlDataReader radera = command.ExecuteReader();
                     while (radera.Read())
@@ -74,10 +78,7 @@ namespace Before_the_wedding.Services
 
         }
 
-
-
-
-        public Feel FetchFeelItem()
+         async Task<Feel> FetchFeelItem()
         {
             try
             {
@@ -87,9 +88,12 @@ namespace Before_the_wedding.Services
                     sqlConnection.Close();
 
                 sqlConnection.Open();
-                using (SqlCommand command = new SqlCommand("SELECT  LetterId , PersonId , CopuleId , ISNULL(FeelDescription, '') AS FeelDescription  FROM MyFeelDescription (nolock)", sqlConnection))
+                using (SqlCommand command = new SqlCommand("SELECT  LetterId , PersonId , CopuleId , ISNULL(FeelDescription, '') AS FeelDescription  FROM MyFeelDescription (nolock) where PersonId = @PID and CopuleId = @CID", sqlConnection))
                 {
                     Feel dic = new Feel();
+
+                    command.Parameters.AddWithValue("@CID", Login.copuleId);
+                    command.Parameters.AddWithValue("@PID", Login.personId);
 
                     SqlDataReader radera = command.ExecuteReader();
                     while (radera.Read())
@@ -114,22 +118,23 @@ namespace Before_the_wedding.Services
 
         }
 
-
-
-
-        public Value FetchValueItem()
+        public async  Task<Value> FetchValueItem()
         {
             try
             {
-                Connection();
+                 Connection();
 
                 if (sqlConnection.State == System.Data.ConnectionState.Open)
                     sqlConnection.Close();
 
                 sqlConnection.Open();
-                using (SqlCommand command = new SqlCommand("SELECT  LetterId , PersonId , CopuleId , ISNULL(ValueFirst, '') AS ValueFirst,  ISNULL(ValueSecond, '') AS ValueSecond,  ISNULL(ValueThird, '') AS ValueThird,  ISNULL(ValueFourth, '') AS ValueFourth,  ISNULL(ValueFifth, '') AS ValueFifth   FROM MyFeelDescription (nolock)", sqlConnection))
+                using (SqlCommand command = new SqlCommand("SELECT  LetterId , PersonId , CopuleId , ISNULL(ValueFirst, '') AS ValueFirst,  ISNULL(ValueSecond, '') AS ValueSecond,  ISNULL(ValueThird, '') AS ValueThird,  ISNULL(ValueFourth, '') AS ValueFourth,  ISNULL(ValueFifth, '') AS ValueFifth   FROM MyFeelDescription (nolock) where PersonId = @PID and CopuleId = @CID", sqlConnection))
                 {
                     Value dic = new Value();
+
+
+                    command.Parameters.AddWithValue("@CID", Login.copuleId);
+                    command.Parameters.AddWithValue("@PID", Login.personId);
 
                     SqlDataReader radera = command.ExecuteReader();
                     while (radera.Read())
@@ -158,7 +163,33 @@ namespace Before_the_wedding.Services
 
         }
 
+        #region PropertyChanged
+        public event PropertyChangedEventHandler PropertyChanged;
 
+        public void OnPropertyChanged(string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
 
+        Task<Letter> IDataExerices<Letter>.FetchLetterItem()
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<Feel> IDataExerices<Letter>.FetchFeelItem()
+        {
+            throw new NotImplementedException();
+        }
+
+        //public Task<Letter> FetchLetterItem()
+        //{
+        //    throw new NotImplementedException();
+        //}
+
+        //public Task<Feel> FetchFeelItem()
+        //{
+        //    throw new NotImplementedException();
+        //}
+        #endregion
     }
 }

@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Before_the_wedding.Services
 {
-    class Letter : INotifyPropertyChanged
+    public class Letter : INotifyPropertyChanged
     {
 
         #region Fields

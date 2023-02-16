@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Before_the_wedding.Services
 {
-    class Feel : INotifyPropertyChanged
+    public class Feel : INotifyPropertyChanged
     {
         #region Fields
 

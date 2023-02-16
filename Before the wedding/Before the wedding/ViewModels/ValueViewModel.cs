@@ -96,11 +96,27 @@ namespace Before_the_wedding.ViewModels
         {
             SaveValueCommand = new Command(OnSaveValue);
             SaveValueText = "Zapisz";
+            LoadData();
+            
         }
 
+        private async void LoadData()
+        {
+            Services.Value itemValue = await DataStoreExerices.FetchValueItem();
+
+            if(itemValue != null)
+            {
+                FirstEntryText = itemValue.ValueFirst;
+                SecondEntryText = itemValue.ValueSecond;
+                ThirdEntryText = itemValue.ValueThird;
+                FourthEntryText = itemValue.ValueFourth;
+                FifthEntryText = itemValue.ValueFifth;
+            }
+        }
 
         private async void OnSaveValue()
         {
+                await DataStoreExerices.SaveOrEditValueItem();
 
         }
     }

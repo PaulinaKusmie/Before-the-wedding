@@ -72,11 +72,24 @@ namespace Before_the_wedding.ViewModels
                 LabelFeelText = "Zapytaj go kiedy czuje się przez Ciebie kochany?";
             else
                 LabelFeelText = "Zapytaj ją kiedy czuje się przez Ciebie kochany?";
+
+            LoadData();
         }
+
+        private async void LoadData()
+        {
+            var itemFeel = await DataStoreExerices.FetchFeelItem();
+            FeelText = itemFeel.FeelDescription;
+
+        }
+
+
 
 
         private async void OnSaveFeel()
         {
+            if (FeelText != null && FeelText != string.Empty)
+                 await DataStoreExerices.SaveOrEditFeelItem();
 
         }
 

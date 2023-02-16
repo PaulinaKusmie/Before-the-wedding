@@ -53,12 +53,23 @@ namespace Before_the_wedding.ViewModels
         {
             SaveLetterCommand = new Command(OnSaveLetter);
             SaveListText = "Zapisz";
+            LoadData();
+        }
+
+        private async void LoadData()
+        {
+            Services.Letter itemLetter = await DataStoreExerices.FetchLetterItem();
+
+            if (itemLetter != null && itemLetter.ContentLetter != string.Empty)
+            ListText = itemLetter.ContentLetter;
         }
 
 
         private async void OnSaveLetter()
         {
-           
+            if (ListText != null && ListText != string.Empty)
+                await DataStoreExerices.SaveOrEditLetterItem();
+
         }
     }
 }

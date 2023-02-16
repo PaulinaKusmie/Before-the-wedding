@@ -182,10 +182,6 @@ namespace Before_the_wedding.ViewModels
 
             }
 
-           
-
-
-
             await Application.Current.MainPage.Navigation.PopAsync();
         }
 

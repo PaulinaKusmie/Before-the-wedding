@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Before_the_wedding.Services
 {
-    class Value : INotifyPropertyChanged
+    public class Value : INotifyPropertyChanged
     {
 
         #region Fields
@@ -110,7 +110,7 @@ namespace Before_the_wedding.Services
         #endregion
 
 
-
+        
 
 
 
