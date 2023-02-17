@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Windows.Input;
 using Xamarin.Forms;
+using Before_the_wedding.Services;
 
 namespace Before_the_wedding.ViewModels
 {
@@ -16,7 +17,7 @@ namespace Before_the_wedding.ViewModels
         private string buttonTextShe;
         private string buttonTextHe;
         private Guid id;
-        SexMode sexMode = SexMode.Woman;
+        private Feel feel;
         public ICommand SaveFeelCommand { get; set; }
         #endregion
 
@@ -68,9 +69,9 @@ namespace Before_the_wedding.ViewModels
             SaveFeelText = "Zapisz";
 
 
-            if (sexMode == SexMode.Woman)
-                LabelFeelText = "Zapytaj go kiedy czuje się przez Ciebie kochany?";
-            else
+            //if (sexMode == SexMode.Woman)
+               // LabelFeelText = "Zapytaj go kiedy czuje się przez Ciebie kochany?";
+           // else
                 LabelFeelText = "Zapytaj ją kiedy czuje się przez Ciebie kochany?";
 
             LoadData();
@@ -78,8 +79,14 @@ namespace Before_the_wedding.ViewModels
 
         private async void LoadData()
         {
-            var itemFeel = await DataStoreExerices.FetchFeelItem();
-            FeelText = itemFeel.FeelDescription;
+            Feel itemFeel = await DataStoreFeel.FetchFeelItem();
+
+            if(itemFeel == null || itemFeel.LetterId == Guid.Empty)
+            {
+                FeelText = itemFeel.FeelDescription;
+                feel = itemFeel;
+            }
+            
 
         }
 
@@ -89,7 +96,7 @@ namespace Before_the_wedding.ViewModels
         private async void OnSaveFeel()
         {
             if (FeelText != null && FeelText != string.Empty)
-                 await DataStoreExerices.SaveOrEditFeelItem();
+                await DataStoreFeel.SaveOrEditFeelItem(feel);
 
         }
 

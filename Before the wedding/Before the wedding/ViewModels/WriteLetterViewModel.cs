@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Before_the_wedding.Services;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows.Input;
@@ -16,6 +17,7 @@ namespace Before_the_wedding.ViewModels
         private string buttonTextShe;
         private string buttonTextHe;
         private Guid id;
+        private Letter letter;
         public ICommand SaveLetterCommand { get; set; }
         #endregion
 
@@ -58,17 +60,21 @@ namespace Before_the_wedding.ViewModels
 
         private async void LoadData()
         {
-            Services.Letter itemLetter = await DataStoreExerices.FetchLetterItem();
+            Services.Letter itemLetter = await DataStoreLetter.FetchLetterItem();
 
             if (itemLetter != null && itemLetter.ContentLetter != string.Empty)
-            ListText = itemLetter.ContentLetter;
+            {
+                ListText = itemLetter.ContentLetter;
+                letter = itemLetter;
+            }
+            
         }
 
 
         private async void OnSaveLetter()
         {
             if (ListText != null && ListText != string.Empty)
-                await DataStoreExerices.SaveOrEditLetterItem();
+                await DataStoreLetter.SaveOrEditLetterItem(letter);
 
         }
     }

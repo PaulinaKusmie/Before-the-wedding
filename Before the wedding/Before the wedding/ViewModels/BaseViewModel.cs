@@ -17,14 +17,17 @@ namespace Before_the_wedding.ViewModels
             Man
         }
 
+        #region Interterface
         public IDataStore<Item> DataStore => DependencyService.Get<IDataStore<Item>>();
-
-        public IDataPersonStore<Person> DataPersonStore;
+        public IDataPersonStore<Person> DataPersonStore => DependencyService.Get<IDataPersonStore<Person>>();
         public IDataStoreItemAnswer<ItemAnswer> DataStoreItemAnswer => DependencyService.Get<IDataStoreItemAnswer<ItemAnswer>>();
-        public IDataExerices<Letter> DataStoreExerices => DependencyService.Get<IDataExerices<Letter>>();
+        public IDataLetter<Letter> DataStoreLetter => DependencyService.Get<IDataLetter<Letter>>();
+        public IDataValue<Value> DataStoreValue => DependencyService.Get<IDataValue<Value>>();
+        public IDataFeel<Feel> DataStoreFeel => DependencyService.Get<IDataFeel<Feel>>();
+        #endregion
         public BaseViewModel()
         {
-            DataPersonStore =  DependencyService.Get<IDataPersonStore<Person>>();
+         
 
         }
 

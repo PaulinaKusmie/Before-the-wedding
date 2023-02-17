@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Windows.Input;
 using Xamarin.Forms;
+using Before_the_wedding.Services;
 
 namespace Before_the_wedding.ViewModels
 {
@@ -102,7 +103,7 @@ namespace Before_the_wedding.ViewModels
 
         private async void LoadData()
         {
-            Services.Value itemValue = await DataStoreExerices.FetchValueItem();
+            Services.Value itemValue = await DataStoreValue.FetchValueItem();
 
             if(itemValue != null)
             {
@@ -116,7 +117,7 @@ namespace Before_the_wedding.ViewModels
 
         private async void OnSaveValue()
         {
-                await DataStoreExerices.SaveOrEditValueItem();
+            //await DataStoreValue.SaveOrEditValueItem();
 
         }
     }

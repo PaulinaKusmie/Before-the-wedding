@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Before_the_wedding.Services
 {
-    public class Exercises : INotifyPropertyChanged, IDataExerices<Letter>
+    public class Exercises : INotifyPropertyChanged, IDataLetter<Letter>, IDataValue<Value>, IDataFeel<Feel>
     {
 
         #region Fields
@@ -26,7 +26,6 @@ namespace Before_the_wedding.Services
 
         #endregion
 
-
         private void Connection()
         {
             string srvrbdname = "DictionaryDatabase";
@@ -38,8 +37,41 @@ namespace Before_the_wedding.Services
         }
 
 
+        //enum ExeriseMode 
+        //{
+        //    Letter = 0,
+        //    Feel = 1,
+        //    Value = 2
+        //}
 
-        async Task<Letter> FetchLetterItem()
+        public bool ExercisesExist(Guid Id, string paramString)
+        {
+            int count = 0;
+            Connection();
+
+            sqlConnection.Open();
+            using (SqlCommand command = new SqlCommand("SELECT count(*) as countme FROM " + paramString + " (nolock) where itemId = @IID and personId = @PID", sqlConnection))
+            {
+                SqlDataReader radera = command.ExecuteReader();
+                command.Parameters.AddWithValue("@IID", Id);
+                command.Parameters.AddWithValue("@CID", Login.copuleId);
+                command.Parameters.AddWithValue("@PID", Login.personId);
+                command.ExecuteNonQuery();
+                while (radera.Read())
+                {
+                    count = (int)radera["countme"];
+                }
+
+            }
+            sqlConnection.Close();
+
+            if (count == 0) return false;
+            else return true;
+
+        }
+
+        #region Letter
+        async Task<Letter> IDataLetter<Letter>.FetchLetterItem()
         {
             try
             {
@@ -77,8 +109,62 @@ namespace Before_the_wedding.Services
             }
 
         }
+        async Task<bool> IDataLetter<Letter>.SaveOrEditLetterItem(Letter L)
+        {
+            try
+            {
+                if (ExercisesExist(L.LetterId, "Letter"))
+                {
+                    //edit
 
-         async Task<Feel> FetchFeelItem()
+                    sqlConnection.Open();
+                    using (SqlCommand command2 = new SqlCommand("UPDATE Letter SET ContentLetter = @Answer WHERE LetterId = @LetterId", sqlConnection))
+                    {
+                        command2.Parameters.AddWithValue("@LetterId", L.LetterId);
+                        command2.Parameters.AddWithValue("@Answer", L.ContentLetter);
+
+                        command2.ExecuteNonQuery();
+                    }
+                    sqlConnection.Close();
+                }
+                else
+                {
+                    //new
+                    sqlConnection.Open();
+                    using (SqlCommand command2 = new SqlCommand("Insert into Letter (LetterId, CopuleId, PersonId, ContentLetter ) VALUES (@LetterId, @CopuleId, @PersonId, @ContentLetter )", sqlConnection))
+                    {
+                        command2.Parameters.Add(new SqlParameter("LetterId", Guid.NewGuid()));
+                        command2.Parameters.Add(new SqlParameter("CopuleId", Login.copuleId));
+                        command2.Parameters.Add(new SqlParameter("PersonId", Login.personId));
+                        command2.Parameters.Add(new SqlParameter("ItemId", L.ContentLetter));
+
+                        command2.ExecuteNonQuery();
+                    }
+                    sqlConnection.Close();
+                }
+
+
+
+
+
+
+
+
+            }
+            catch (Exception ex)
+            {
+                await App.Current.MainPage.DisplayAlert("Uwaga", ex.Message, "Ok");
+                throw;
+            }
+
+
+            return true;
+        }
+        #endregion
+
+
+        #region Feel
+        async Task<Feel> IDataFeel<Feel>.FetchFeelItem()
         {
             try
             {
@@ -117,12 +203,83 @@ namespace Before_the_wedding.Services
             }
 
         }
+        async Task<bool> IDataFeel<Feel>.SaveOrEditFeelItem(Feel F)
+        {
+            if (ExercisesExist(F.LetterId, "Feel"))
+            {
+                sqlConnection.Open();
+                using (SqlCommand command2 = new SqlCommand("UPDATE Feel SET FeelDescription = @Answer WHERE FeelId = @LetterId", sqlConnection))
+                {
+                    command2.Parameters.AddWithValue("@LetterId", F.LetterId);
+                    command2.Parameters.AddWithValue("@Answer", F.FeelDescription);
 
-        public async  Task<Value> FetchValueItem()
+                    command2.ExecuteNonQuery();
+                }
+                sqlConnection.Close();
+            }
+            else
+            {
+                sqlConnection.Open();
+                using (SqlCommand command2 = new SqlCommand("Insert into Feel (FeelId, CopuleId, PersonId, FeelDescription ) VALUES (@FeelId, @CopuleId, @PersonId, @FeelDescription )", sqlConnection))
+                {
+                    command2.Parameters.Add(new SqlParameter("FeelId", Guid.NewGuid()));
+                    command2.Parameters.Add(new SqlParameter("CopuleId", Login.copuleId));
+                    command2.Parameters.Add(new SqlParameter("PersonId", Login.personId));
+                    command2.Parameters.Add(new SqlParameter("FeelDescription", F.FeelDescription));
+
+                    command2.ExecuteNonQuery();
+                }
+                sqlConnection.Close();
+            }
+
+
+
+
+
+            return true;
+        }
+        #endregion
+
+
+        #region Value
+        async Task<bool> IDataValue<Value>.SaveOrEditValueItem(Value V)
+        {
+            sqlConnection.Open();
+            using (SqlCommand command2 = new SqlCommand("Insert into Value (LetterId, CopuleId, PersonId, ValueFirst, ValueSecond, ValueThird, ValueFourth, ValueFifth ) VALUES (@ValueId, @CopuleId, @PersonId, @ValueFirst, @ValueSecond, @ValueThird, @ValueFourth, @ValueFifth )", sqlConnection))
+            {
+                command2.Parameters.Add(new SqlParameter("ValueId", Guid.NewGuid()));
+                command2.Parameters.Add(new SqlParameter("CopuleId", Login.copuleId));
+                command2.Parameters.Add(new SqlParameter("PersonId", Login.personId));
+                command2.Parameters.Add(new SqlParameter("ValueFirst", V.ValueFirst));
+                command2.Parameters.Add(new SqlParameter("ValueSecond", V.ValueSecond));
+                command2.Parameters.Add(new SqlParameter("ValueThird", V.ValueThird));
+                command2.Parameters.Add(new SqlParameter("ValueFourth", V.ValueFourth));
+                command2.Parameters.Add(new SqlParameter("ValueFifth", V.ValueFifth));
+                command2.ExecuteNonQuery();
+            }
+            sqlConnection.Close();
+
+            sqlConnection.Open();
+            using (SqlCommand command2 = new SqlCommand("UPDATE Value SET ValueFirst = @Answer WHERE FeelId = @ValueId", sqlConnection))
+            {
+                command2.Parameters.AddWithValue("@ValueId", V.ValueId);
+                command2.Parameters.AddWithValue("@ValueFirst", V.ValueFirst);
+                command2.Parameters.AddWithValue("@ValueSecond", V.ValueSecond);
+                command2.Parameters.AddWithValue("@ValueThird", V.ValueThird);
+                command2.Parameters.AddWithValue("@ValueFourth", V.ValueFourth);
+                command2.Parameters.AddWithValue("@ValueFifth", V.ValueFifth);
+                command2.ExecuteNonQuery();
+            }
+            sqlConnection.Close();
+
+
+            return true;
+        }
+        async Task<Value> IDataValue<Value>.FetchValueItem()
         {
             try
             {
-                 Connection();
+                Connection();
 
                 if (sqlConnection.State == System.Data.ConnectionState.Open)
                     sqlConnection.Close();
@@ -162,6 +319,9 @@ namespace Before_the_wedding.Services
             }
 
         }
+        #endregion
+
+
 
         #region PropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;
@@ -169,27 +329,7 @@ namespace Before_the_wedding.Services
         public void OnPropertyChanged(string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        Task<Letter> IDataExerices<Letter>.FetchLetterItem()
-        {
-            throw new NotImplementedException();
-        }
-
-        Task<Feel> IDataExerices<Letter>.FetchFeelItem()
-        {
-            throw new NotImplementedException();
-        }
-
-        //public Task<Letter> FetchLetterItem()
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-        //public Task<Feel> FetchFeelItem()
-        //{
-        //    throw new NotImplementedException();
-        //}
+        } 
         #endregion
     }
 }
